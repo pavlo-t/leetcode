@@ -7,7 +7,18 @@ class d01 extends AnyWordSpec with Matchers {
 
   object Solution {
     def singleNumber(nums: Array[Int]): Int = {
-      nums
+      nums.reduce(_ ^ _)
+    }
+
+    def singleNumberMy(nums: Array[Int]): Int = {
+      val seen = collection.mutable.Set[Int]()
+      for (i <- nums) {
+        if (seen.contains(i))
+          seen.remove(i)
+        else
+          seen.addOne(i)
+      }
+      seen.head
     }
   }
 
@@ -21,7 +32,17 @@ class d01 extends AnyWordSpec with Matchers {
     }
 
     "3" in {
-      Solution.singleNumber(Array(4, 1, 2, 1, 2)) shouldBe 4
+      val max = 100000001
+      val last = max / 2
+      val a = Array.ofDim[Int](max)
+      for (i <- 0 to last)
+        if (i == last)
+          a(i) = i
+        else {
+          a(i) = i
+          a(i + last + 1) = i
+        }
+      Solution.singleNumber(a) shouldBe last
     }
   }
 }
