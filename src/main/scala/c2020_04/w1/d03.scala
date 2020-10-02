@@ -6,25 +6,25 @@ import org.scalatest.wordspec.AnyWordSpec
 
 class d03 extends AnyWordSpec with Matchers {
 
-object Solution {
-  def maxSubArrayFold(nums: Array[Int]): Int = {
-    var current = 0
-    nums.foldLeft(Int.MinValue) { (acc, n) =>
-      current = math.max(current + n, n)
-      math.max(current, acc)
+  object Solution {
+    def maxSubArrayFold(nums: Array[Int]): Int = {
+      var current = 0
+      nums.foldLeft(Int.MinValue) { (acc, n) =>
+        current = math.max(current + n, n)
+        math.max(current, acc)
+      }
     }
-  }
 
-  def maxSubArray(nums: Array[Int]): Int = {
-    var max = Int.MinValue
-    var current = 0
-    for (n <- nums) {
-      current = math.max(current + n, n)
-      if (current > max) max = current
+    def maxSubArray(nums: Array[Int]): Int = {
+      var max = Int.MinValue
+      var current = 0
+      for (n <- nums) {
+        current = math.max(current + n, n)
+        if (current > max) max = current
+      }
+      max
     }
-    max
   }
-}
 
   "Solution" should {
     "Array(-2, 1, -3, 4, -1, 2, 1, -5, 4) shouldBe 6" in {
