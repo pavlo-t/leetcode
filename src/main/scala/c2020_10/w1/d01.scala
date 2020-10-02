@@ -6,12 +6,12 @@ import org.scalatest.wordspec.AnyWordSpec
 class d01 extends AnyWordSpec with Matchers {
 
   class RecentCounter() {
-    private val calls = collection.mutable.Buffer[Int]()
+    private val calls = collection.mutable.ListBuffer[Int]()
 
     def ping(t: Int): Int = {
       calls addOne t
-      while (calls.head < t - 3000)
-        calls remove 0
+      val rangeStart = t - 3000
+      calls.dropWhileInPlace(_ < rangeStart)
       calls.size
     }
   }
