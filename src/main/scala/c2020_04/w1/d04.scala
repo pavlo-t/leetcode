@@ -23,7 +23,7 @@ class d04 extends AnyWordSpec with Matchers {
 
     import scala.annotation.tailrec
 
-    def moveZeroes(nums: Array[Int]): Unit = {
+    def moveZeroes2(nums: Array[Int]): Unit = {
       @tailrec
       def nextNonZero(i: Int): Int = {
         if (i < nums.length) {
@@ -49,6 +49,23 @@ class d04 extends AnyWordSpec with Matchers {
 
       loop(0)
     }
+
+    def moveZeroes(nums: Array[Int]): Unit = {
+      var lastNonZeroFoundAt = 0
+      var cur = 0
+      var t = 0
+
+      while (cur < nums.length) {
+        if (nums(cur) != 0) {
+          t = nums(cur)
+          nums(cur) = nums(lastNonZeroFoundAt)
+          nums(lastNonZeroFoundAt) = t
+
+          lastNonZeroFoundAt += 1
+        }
+        cur += 1
+      }
+    }
   }
 
   "Example 1" in {
@@ -63,5 +80,12 @@ class d04 extends AnyWordSpec with Matchers {
     Solution.moveZeroes(arr)
 
     arr shouldBe Array(42, 0, 0, 0, 0)
+  }
+
+  "Test 10" in {
+    val arr = Array(1)
+    Solution.moveZeroes(arr)
+
+    arr shouldBe Array(1)
   }
 }
