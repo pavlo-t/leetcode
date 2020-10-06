@@ -4,7 +4,6 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
 
-// https://leetcode.com/explore/challenge/card/30-day-leetcoding-challenge/528/week-1/3286/
 class d04 extends AnyWordSpec with Matchers {
 
   /**

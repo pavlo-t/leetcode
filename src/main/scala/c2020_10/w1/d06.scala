@@ -19,11 +19,11 @@ class d06 extends AnyWordSpec with Matchers {
    *
    *
    * <b>Constraints:</b><ul>
-   * <li>The number of nodes in the tree will be in the range `[0, 104]`.
-   * <li>`-108 <= Node.val <= 108`
-   * <li>All the values `Node.val` are <b>unique</b>.
-   * <li>`-108 <= val <= 108`
-   * <li>It's <b>guaranteed</b> that `val` does not exist in the original BST.
+   * <li> The number of nodes in the tree will be in the range `[0, 104]`.
+   * <li> `-108 <= Node.val <= 108`
+   * <li> All the values `Node.val` are <b>unique</b>.
+   * <li> `-108 <= val <= 108`
+   * <li> It's <b>guaranteed</b> that `val` does not exist in the original BST.
    */
   object Solution {
     import scala.annotation.tailrec

@@ -4,7 +4,6 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
 
-// https://leetcode.com/explore/challenge/card/30-day-leetcoding-challenge/528/week-1/3286/
 class d05 extends AnyWordSpec with Matchers {
 
   /**
@@ -19,8 +18,8 @@ class d05 extends AnyWordSpec with Matchers {
    * (i.e., you must sell the stock before you buy again).
    *
    * <b>Constraints</b>:<ul>
-   * <ul> `1 <= prices.length <= 3 * 10 ^ 4`
-   * <ul> `0 <= prices[i] <= 10 ^ 4`
+   * <li> `1 <= prices.length <= 3 * 10 ^ 4`
+   * <li> `0 <= prices[i] <= 10 ^ 4`
    */
   object Solution {
     def maxProfitMy(prices: Array[Int]): Int =
