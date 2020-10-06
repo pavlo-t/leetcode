@@ -3,7 +3,7 @@ package c2020_04.w1
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-class d01 extends AnyWordSpec with Matchers {
+class d2020_04_01 extends AnyWordSpec with Matchers {
 
   object Solution {
     def singleNumber(nums: Array[Int]): Int = {

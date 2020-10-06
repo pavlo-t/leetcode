@@ -4,7 +4,7 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
 
-class d02 extends AnyWordSpec with Matchers {
+class d2020_10_02 extends AnyWordSpec with Matchers {
 
   /**
    * Given an array of <b>distinct</b> integers `candidates` and a target integer `target`,

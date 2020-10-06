@@ -4,7 +4,7 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
 
-class d02 extends AnyWordSpec with Matchers {
+class d2020_04_02 extends AnyWordSpec with Matchers {
 
   object Solution {
     def isHappy(n: Int): Boolean = {

@@ -4,7 +4,7 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
 
-class d06 extends AnyWordSpec with Matchers {
+class d2020_10_06 extends AnyWordSpec with Matchers {
 
   /**
    * Insert into a Binary Search Tree

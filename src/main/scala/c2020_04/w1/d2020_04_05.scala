@@ -4,7 +4,7 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
 
-class d05 extends AnyWordSpec with Matchers {
+class d2020_04_05 extends AnyWordSpec with Matchers {
 
   /**
    * Best Time to Buy and Sell Stock II

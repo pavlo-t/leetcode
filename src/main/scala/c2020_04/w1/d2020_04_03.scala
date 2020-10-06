@@ -4,7 +4,7 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
 
-class d03 extends AnyWordSpec with Matchers {
+class d2020_04_03 extends AnyWordSpec with Matchers {
 
   object Solution {
     def maxSubArrayFold(nums: Array[Int]): Int = {

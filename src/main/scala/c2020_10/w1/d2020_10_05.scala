@@ -4,7 +4,7 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
 
-class d05 extends AnyWordSpec with Matchers {
+class d2020_10_05 extends AnyWordSpec with Matchers {
 
   /**
    * Complement of Base 10 Integer

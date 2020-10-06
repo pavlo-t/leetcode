@@ -4,7 +4,7 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
 
-class d06 extends AnyWordSpec with Matchers {
+class d2020_04_06 extends AnyWordSpec with Matchers {
 
   /**
    * Group Anagrams
@@ -73,9 +73,15 @@ class d06 extends AnyWordSpec with Matchers {
   }
 
   "My test: max size" in {
+    import util.Random
+
     val length = 40000
     val arr = Array.ofDim[String](length)
-    for (i <- 0 until length) arr(i) = util.Random.nextString(util.Random.nextInt(100))
+    for (i <- 0 until length) {
+      val sb = new StringBuilder
+      (1 to Random.nextInt(101)).foreach(_ => sb.addOne((Random.nextInt('z' - 'a' + 1) + 'a').toChar))
+      arr(i) = sb.toString()
+    }
 
     Solution.groupAnagrams(arr).size should be <= 40000
   }

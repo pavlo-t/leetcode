@@ -4,7 +4,7 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
 
-class d04 extends AnyWordSpec with Matchers {
+class d2020_04_04 extends AnyWordSpec with Matchers {
 
   /**
    * Move Zeroes

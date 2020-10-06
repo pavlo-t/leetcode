@@ -4,7 +4,7 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
 
-class d04 extends AnyWordSpec with Matchers {
+class d2020_10_04 extends AnyWordSpec with Matchers {
 
   /**
    * Remove Covered Intervals

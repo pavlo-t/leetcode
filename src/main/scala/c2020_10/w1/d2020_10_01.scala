@@ -3,7 +3,7 @@ package c2020_10.w1
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-class d01 extends AnyWordSpec with Matchers {
+class d2020_10_01 extends AnyWordSpec with Matchers {
 
   class RecentCounter() {
     private val calls = collection.mutable.ListBuffer[Int]()
