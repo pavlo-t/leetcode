@@ -22,7 +22,7 @@ class d2020_10_08 extends AnyWordSpec with Matchers {
   object Solution {
     import scala.annotation.tailrec
 
-    def searchMy(nums: Array[Int], target: Int): Int = {
+    def search1(nums: Array[Int], target: Int): Int = {
       if (nums.length == 1) if (nums(0) == target) 0 else -1
       else {
         @tailrec
