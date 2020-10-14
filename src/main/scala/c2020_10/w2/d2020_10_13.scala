@@ -49,14 +49,34 @@ class d2020_10_13 extends AnyWordSpec with Matchers {
     }
 
     private def merge(xs: ListNode, ys: ListNode): ListNode = {
+      @tailrec
+      def loop(ls: ListNode, rs: ListNode,
+               head: ListNode, current: ListNode): ListNode = {
+        if (ls == null) {
+          current.next = rs
+          head
+        } else if (rs == null) {
+          current.next = ls
+          head
+        } else if (ls.x < rs.x) {
+          val next = ls
+          current.next = next
+          loop(ls.next, rs, head, next)
+        } else {
+          val next = rs
+          current.next = next
+          loop(ls, rs.next, head, next)
+        }
+      }
+
       if (xs == null) ys
       else if (ys == null) xs
       else if (xs.x <= ys.x) {
-        xs.next = merge(xs.next, ys)
-        xs
+        val head = xs
+        loop(xs.next, ys, head, head)
       } else {
-        ys.next = merge(xs, ys.next)
-        ys
+        val head = ys
+        loop(xs, ys.next, head, head)
       }
     }
   }
@@ -70,17 +90,17 @@ class d2020_10_13 extends AnyWordSpec with Matchers {
   private def ln(x: Int, next: ListNode = null) =
     new ListNode(x, next)
 
-  "Example 1" in {
+  "Example 1: [4,2,1,3]" in {
     val input = ln(4, ln(2, ln(1, ln(3))))
     val expected = ln(1, ln(2, ln(3, ln(4))))
     Solution.sortList(input).toString shouldBe expected.toString
   }
-  "Example 2" in {
+  "Example 2: [-1,5,3,4,0]" in {
     val input = ln(-1, ln(5, ln(3, ln(4, ln(0)))))
     val expected = ln(-1, ln(0, ln(3, ln(4, ln(5)))))
     Solution.sortList(input).toString shouldBe expected.toString
   }
-  "Example 3" in {
+  "Example 3: []" in {
     Solution.sortList(null) shouldBe null
   }
 
@@ -100,7 +120,8 @@ class d2020_10_13 extends AnyWordSpec with Matchers {
       root
     }
 
-    val length = 10000
+    //val length = 29362
+    val length = 50000
     val arr = Array.ofDim[Int](length)
     for (i <- 1 until length) {
       arr(i) = Random.nextInt(200001) - 100000
@@ -143,6 +164,7 @@ class d2020_10_13 extends AnyWordSpec with Matchers {
         head
       }
   }
+
   object SolutionWithMutableBuffer {
     import collection.mutable
     import scala.annotation.tailrec
@@ -167,6 +189,7 @@ class d2020_10_13 extends AnyWordSpec with Matchers {
         bufferToLn(buffer.length - 1, null)
       }
   }
+
   object SolutionMergeImmutable {
     import scala.annotation.tailrec
 
@@ -213,4 +236,91 @@ class d2020_10_13 extends AnyWordSpec with Matchers {
         new ListNode(ys.x, merge(xs, ys.next))
     }
   }
+
+  object SolutionBottomUp {
+    private var tail: ListNode = new ListNode()
+    private var nextSublist: ListNode = new ListNode()
+
+    def sortList(head: ListNode): ListNode =
+      if (head == null || head.next == null) head
+      else {
+        val n = getSize(head)
+        var start: ListNode = head
+        val dummyHead: ListNode = new ListNode()
+        var size: Int = 1
+        while (size < n) {
+          tail = dummyHead
+          while (start != null && start.next != null) {
+            val mid: ListNode = split(start, size)
+            merge(start, mid)
+            start = nextSublist
+          }
+          if (start != null && start.next == null) {
+            tail.next = start
+          }
+          start = dummyHead.next
+
+          size = size * 2
+        }
+
+        dummyHead.next
+      }
+
+    private def split(start: ListNode, size: Int): ListNode = {
+      var midPrev = start
+      var end: ListNode = start.next
+      // use fast and slow approach to find middle and end of second linked list
+      var i = 1
+      for (_ <- 1 until size if midPrev.next != null || end.next != null) {
+        if (end.next != null)
+          end = if (end.next.next != null) end.next.next else end.next
+        if (midPrev.next != null)
+          midPrev = midPrev.next
+      }
+      val mid = midPrev.next
+      midPrev.next = null
+      nextSublist = end.next
+      end.next = null
+      // return the start of second linked list
+      mid
+    }
+
+    private def merge(xs: ListNode, ys: ListNode): Unit = {
+      val dummyHead: ListNode = new ListNode()
+      var newTail = dummyHead
+      var list1 = xs
+      var list2 = ys
+      while (list1 != null && list2 != null) {
+        if (list1.x < list2.x) {
+          newTail.next = list1
+          list1 = list1.next
+          newTail = newTail.next
+        }
+        else {
+          newTail.next = list2
+          list2 = list2.next
+          newTail = newTail.next
+        }
+      }
+      newTail.next = if (list1 != null) list1 else list2
+      // traverse till the end of merged list to get the newTail
+      while (newTail.next != null)
+        newTail = newTail.next
+      // link the old tail with the head of merged list
+      tail.next = dummyHead.next
+      // update the old tail to the new tail of merged list
+      tail = newTail
+    }
+
+    private def getSize(head: ListNode): Int = {
+      var cnt = 0
+      var ptr = head
+      while (ptr != null) {
+        ptr = ptr.next
+        cnt += 1
+      }
+      cnt
+    }
+  }
+
 }
