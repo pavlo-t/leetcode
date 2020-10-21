@@ -1,4 +1,4 @@
-package c2020_10
+package c2020_10.w3
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -63,8 +63,8 @@ class d2020_10_19 extends AnyWordSpec with Matchers {
   }
 
   object SolutionIdxRecursionMutable {
-    import scala.annotation.tailrec
     import collection.mutable
+    import scala.annotation.tailrec
 
     def minDominoRotations(A: Array[Int], B: Array[Int]): Int = {
       def rf(a: Boolean, old: Option[(Int, Int)]): Option[(Int, Int)] = old match {
