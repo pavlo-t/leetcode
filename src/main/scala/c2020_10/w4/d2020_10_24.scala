@@ -8,19 +8,20 @@ class d2020_10_24 extends AnyWordSpec with Matchers {
   /**
    * <h3>Bag of Tokens</h3>
    *
-   * You have an initial power of P, an initial score of 0,
-   * and a bag of tokens where tokens[i] is the value of the ith token (0-indexed).
+   * You have an initial <b>power</b> of `P`, an initial <b>score</b> of `0`,
+   * and a bag of `tokens` where `tokens[i]` is the value of the `i`th token (0-indexed).
    *
-   * Your goal is to maximize your total score by potentially playing each token in one of two ways:
+   * Your goal is to maximize your total <b>score</b> by potentially playing each token in one of two ways:<ul>
+   * <li>If your current <b>power</b> is at least `tokens[i]`, you may play the `i`th token face up,
+   * losing `tokens[i]` <b>power</b> and gaining `1` <b>score</b>.
+   * <li>If your current <b>score</b> is at least `1`, you may play the `i`th token face down,
+   * gaining `tokens[i]` <b>power</b> and losing `1` <b>score</b>.
+   * </ul>
    *
-   * If your current power is at least tokens[i], you may play the ith token face up,
-   * losing tokens[i] power and gaining 1 score.
-   * If your current score is at least 1, you may play the ith token face down,
-   * gaining tokens[i] power and losing 1 score.
-   * Each token may be played at most once and in any order.
-   * You do not have to play all the tokens.
+   * Each token may be played <b>at most</b> once and <b>in any order</b>.
+   * You do <b>not</b> have to play all the tokens.
    *
-   * Return the largest possible score you can achieve after playing any number of tokens.
+   * Return <em>the largest possible <b>score</b> you can achieve after playing any number of tokens</em>.
    *
    * <b>Constraints:</b><ul>
    * <li> `0 <= tokens.length <= 1000`
@@ -29,24 +30,24 @@ class d2020_10_24 extends AnyWordSpec with Matchers {
    *
    * @see [[https://leetcode.com/problems/bag-of-tokens/solution/]]
    */
-object Solution {
-  import scala.annotation.tailrec
+  object Solution {
+    import scala.annotation.tailrec
 
-  def bagOfTokensScore(tokens: Array[Int], P: Int): Int = {
-    tokens.sortInPlace()
-    @tailrec
-    def loop(f: Int, l: Int, p: Int, s: Int): Int = {
-      if (f > l) s
-      else if (tokens(f) <= p)
-        loop(f + 1, l, p - tokens(f), s + 1)
-      else if (f != l && s > 0 && tokens(f) < (p + tokens(l)))
-        loop(f, l - 1, p + tokens(l), s - 1)
-      else s
+    def bagOfTokensScore(tokens: Array[Int], P: Int): Int = {
+      tokens.sortInPlace()
+      @tailrec
+      def loop(f: Int, l: Int, p: Int, s: Int): Int = {
+        if (f > l) s
+        else if (tokens(f) <= p)
+          loop(f + 1, l, p - tokens(f), s + 1)
+        else if (f != l && s > 0 && tokens(f) < (p + tokens(l)))
+          loop(f, l - 1, p + tokens(l), s - 1)
+        else s
+      }
+
+      loop(0, tokens.length - 1, P, 0)
     }
-
-    loop(0, tokens.length - 1, P, 0)
   }
-}
 
   import Solution.bagOfTokensScore
 
