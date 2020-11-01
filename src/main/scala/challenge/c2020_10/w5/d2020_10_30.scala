@@ -20,10 +20,124 @@ class d2020_10_30 extends AnyWordSpec with Matchers {
    */
   object SolutionStub {
     def findNumberOfLIS(nums: Array[Int]): Int = {
-      // TODO solve using segment tree
-      // https://leetcode.com/problems/number-of-longest-increasing-subsequence/solution/
       nums.length
     }
+  }
+
+  /**
+   * <h3>Approach 2: Segment Tree</h3>
+   *
+   * <b>Intuition</b>
+   *
+   * Suppose we knew for each length `L`, the number of sequences with length `L` ending in `x`.
+   * Then when considering the next element of `nums`,
+   * updating our knowledge hinges on knowing the number of sequences with length `L-1` ending in `y < x`.
+   * This type of query over an interval is a natural fit for using some sort of tree.
+   *
+   * We could try using Fenwick trees, but we would have to store `N` of them, which naively might be `O(N^2)` space.
+   * Here, we focus on an implementation of a Segment Tree.
+   *
+   * <b>Algorithm</b>
+   *
+   * Implementing Segment Trees is discussed in more detail
+   * [[https://leetcode.com/articles/a-recursive-approach-to-segment-trees-range-sum-queries-lazy-propagation/ here]].
+   * In this approach, we will attempt a variant of segment tree that doesn't use lazy propagation.
+   *
+   * First, let us call the "value" of an interval, the longest length of an increasing subsequence,
+   * and the number of such subsequences in that interval.
+   *
+   * Each node knows about the interval of `nums` values it is considering `[node.range_left, node.range_right]`,
+   * and it knows about `node.val`, which contains information on the value of interval.
+   * Nodes also have `node.left` and `node.right` children that represents the left and right half of the interval
+   * `node` considers. These child nodes are created on demand as appropriate.
+   *
+   * Now, `query(node, key)` will tell us the value of the interval specified by `node`,
+   * except we'll exclude anything above `key`.
+   * When key is outside the interval specified by `node`, we return the answer.
+   * Otherwise, we'll divide the interval into two and query both intervals, then `merge` the result.
+   *
+   * What does `merge(v1, v2)` do?
+   * Suppose two nodes specify adjacent intervals, and have corresponding values `v1 = node1.val`, `v2 = node2.val`.
+   * What should the aggregate value, `v = merge(v1, v2)` be?
+   * If there are longer subsequences in one node, then `v` will just be that.
+   * If both nodes have longest subsequences of equal length, then we should count subsequences in both nodes.
+   * Note that we did not have to consider cases where larger subsequences were made,
+   * since these were handled by `insert`.
+   *
+   * What does `insert(node, key, val)` do?
+   * We repeatedly insert the `key` into the correct half of the interval `that` node specifies (possibly a point),
+   * and after such insertion this node's value could change, so we merge the values together again.
+   *
+   * Finally, in our main algorithm, for each `num in nums` we query for the value `length`, `count`
+   * of the interval below `num`, and we know it will lead to `count` additional sequences of length `length + 1`.
+   * We then update our tree with that knowledge.
+   *
+   * <b>Complexity Analysis</b><ul>
+   * <li> Time Complexity: `O(N log N)` where `N` is the length of nums.
+   * In our main loop, we do `O(log N)` work to `query` and `insert`.
+   * <li> Space Complexity: `O(N)`, the space used by the segment tree.
+   * </ul>
+   *
+   * [[https://leetcode.com/problems/number-of-longest-increasing-subsequence/solution/]]
+   */
+  object Solution {
+    def findNumberOfLIS(nums: Array[Int]): Int =
+      if (nums.length == 0) 0
+      else {
+        var min, max = nums(0)
+        for (n <- nums) {
+          min = n min min
+          max = n max max
+        }
+
+        val root = Node(min, max)
+        for (n <- nums) {
+          val v: Value = query(root, n - 1)
+          insert(root, n, Value(v.length + 1, v.count))
+        }
+
+        root.value.count
+      }
+
+    def query(node: Node, key: Int): Value =
+      if (node.rangeRight <= key) node.value
+      else if (node.rangeLeft > key) Value(0, 1)
+      else merge(query(node.left, key), query(node.right, key))
+
+    def merge(v1: Value, v2: Value): Value =
+      if (v1.length == v2.length)
+        if (v1.length == 0) Value(0, 1)
+        else Value(v1.length, v1.count + v2.count)
+      else if (v1.length > v2.length) v1
+      else v2
+
+    def insert(node: Node, key: Int, value: Value): Unit =
+      if (node.rangeLeft == node.rangeRight)
+        node.value = merge(value, node.value)
+      else {
+        if (key <= node.rangeMid) insert(node.left, key, value)
+        else insert(node.right, key, value)
+        node.value = merge(node.left.value, node.right.value)
+      }
+
+    case class Node(rangeLeft: Int, rangeRight: Int) {
+      var value: Value = Value(0, 1)
+
+      private var _left: Node = _
+      private var _right: Node = _
+
+      def rangeMid: Int = rangeLeft + (rangeRight - rangeLeft) / 2
+      def left: Node = {
+        if (_left == null) _left = Node(rangeLeft, rangeMid)
+        _left
+      }
+      def right: Node = {
+        if (_right == null) _right = Node(rangeMid + 1, rangeRight)
+        _right
+      }
+    }
+
+    case class Value(length: Int, count: Int)
   }
 
   /**
@@ -44,11 +158,13 @@ class d2020_10_30 extends AnyWordSpec with Matchers {
    * (ie. `count[j] += count[i]`).
    *
    * <b>Complexity Analysis</b><ul>
-   * <li> Time Complexity: `O(N^2)` where `N` is the length of nums. There are two for-loops and the work inside is O(1)O(1).
+   * <li> Time Complexity: `O(N^2)` where `N` is the length of nums. There are two loops and the work inside is `O(1)`.
    * <li> Space Complexity: `O(N)`, the space used by `lengths` and `counts`.
    * </ul>
+   *
+   * [[https://leetcode.com/problems/number-of-longest-increasing-subsequence/solution/]]
    */
-  object Solution {
+  object SolutionDP {
     def findNumberOfLIS(nums: Array[Int]): Int = {
       if (nums.length <= 1) nums.length
       else {
@@ -162,19 +278,19 @@ class d2020_10_30 extends AnyWordSpec with Matchers {
     findNumberOfLIS(Array(2, 1)) shouldBe 2
   }
 
-  "([<2_000 elements>]) -> 1" in {
+  "([2_000 elements]) -> 1" in {
     val nums = Array.ofDim[Int](2_000)
     for (i <- nums.indices) nums(i) = i
 
     findNumberOfLIS(nums) shouldBe 1
   }
-  "([<2_000 elements>]) -> 2_000" in {
+  "([2_000 elements]) -> 2_000" in {
     val nums = Array.ofDim[Int](2_000)
     for (i <- nums.indices) nums(i) = 1
 
     findNumberOfLIS(nums) shouldBe 2_000
   }
-  "([<2_000 elements>]) -> 1_586_054_160" in {
+  "([2_000 elements]) -> 1_586_054_160" in {
     val nums = Array.ofDim[Int](2_000)
     for (i <- nums.indices) nums(i) = i % 5
 
