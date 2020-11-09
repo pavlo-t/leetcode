@@ -8,17 +8,16 @@ import org.scalatest.wordspec.AnyWordSpec
 class d2020_10_13 extends AnyWordSpec with Matchers {
 
   /**
-   * Sort List
+   * <h3>Sort List</h3>
    *
    * Given the head of a linked list, return the list after sorting it in ascending order.
    *
    * <b>Follow up</b>: Can you sort the linked list in <code>O(n log<sub>n</sub>)</code> time
-   * and <code>O(1) memory</code> (i.e. constant space)?
-   *
+   * and <code>O(1)</code> memory (i.e. constant space)?
    *
    * <b>Constraints:</b><ul>
-   * <li> The number of nodes in the list is in the range <code>[0, 5 * 10<sup>4</sup>]</code>.
-   * <li> <code>-10<sup>5</sup> <= Node.val <= 10<sup>5</sup></code>
+   * <li> The number of nodes in the list is in the range `[0, 50_000]`.
+   * <li> `-100_000 <= Node.val <= 100_000`
    * </ul>
    */
   object Solution {
@@ -89,53 +88,6 @@ class d2020_10_13 extends AnyWordSpec with Matchers {
   }
   private def ln(x: Int, next: ListNode = null) =
     new ListNode(x, next)
-
-  "Example 1: [4,2,1,3]" in {
-    val input = ln(4, ln(2, ln(1, ln(3))))
-    val expected = ln(1, ln(2, ln(3, ln(4))))
-    Solution.sortList(input).toString shouldBe expected.toString
-  }
-  "Example 2: [-1,5,3,4,0]" in {
-    val input = ln(-1, ln(5, ln(3, ln(4, ln(0)))))
-    val expected = ln(-1, ln(0, ln(3, ln(4, ln(5)))))
-    Solution.sortList(input).toString shouldBe expected.toString
-  }
-  "Example 3: []" in {
-    Solution.sortList(null) shouldBe null
-  }
-
-  "My test: max size" in {
-    import util.Random
-
-    def arrayToLn(arr: Array[Int]): ListNode = {
-      val root = ln(arr(0))
-      var current = root
-
-      for (i <- 1 until arr.length) {
-        val next = ln(arr(i))
-        current.next = next
-        current = next
-      }
-
-      root
-    }
-
-    //val length = 29362
-    val length = 50000
-    val arr = Array.ofDim[Int](length)
-    for (i <- 1 until length) {
-      arr(i) = Random.nextInt(200001) - 100000
-    }
-    val input = arrayToLn(arr)
-    val result = Solution.sortList(input)
-
-    var current = result
-    for (x <- arr.sorted) {
-      current.x shouldBe x
-      current = current.next
-    }
-    current shouldBe null
-  }
 
   object SolutionWithMutableBufferAndMutateInput {
     import collection.mutable
@@ -323,4 +275,50 @@ class d2020_10_13 extends AnyWordSpec with Matchers {
     }
   }
 
+  "Example 1: [4,2,1,3]" in {
+    val input = ln(4, ln(2, ln(1, ln(3))))
+    val expected = ln(1, ln(2, ln(3, ln(4))))
+    Solution.sortList(input).toString shouldBe expected.toString
+  }
+  "Example 2: [-1,5,3,4,0]" in {
+    val input = ln(-1, ln(5, ln(3, ln(4, ln(0)))))
+    val expected = ln(-1, ln(0, ln(3, ln(4, ln(5)))))
+    Solution.sortList(input).toString shouldBe expected.toString
+  }
+  "Example 3: []" in {
+    Solution.sortList(null) shouldBe null
+  }
+
+  "My test: max size" in {
+    import util.Random
+
+    def arrayToLn(arr: Array[Int]): ListNode = {
+      val root = ln(arr(0))
+      var current = root
+
+      for (i <- 1 until arr.length) {
+        val next = ln(arr(i))
+        current.next = next
+        current = next
+      }
+
+      root
+    }
+
+    //val length = 29362
+    val length = 50000
+    val arr = Array.ofDim[Int](length)
+    for (i <- 1 until length) {
+      arr(i) = Random.nextInt(200001) - 100000
+    }
+    val input = arrayToLn(arr)
+    val result = Solution.sortList(input)
+
+    var current = result
+    for (x <- arr.sorted) {
+      current.x shouldBe x
+      current = current.next
+    }
+    current shouldBe null
+  }
 }
