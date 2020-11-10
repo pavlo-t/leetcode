@@ -10,17 +10,143 @@ class d2020_10_13 extends AnyWordSpec with Matchers {
   /**
    * <h3>Sort List</h3>
    *
-   * Given the head of a linked list, return the list after sorting it in ascending order.
+   * Given the `head` of a linked list, return <em>the list after sorting it in <b>ascending order</b></em>.
    *
-   * <b>Follow up</b>: Can you sort the linked list in <code>O(n log<sub>n</sub>)</code> time
-   * and <code>O(1)</code> memory (i.e. constant space)?
+   * <b>Follow up</b>: Can you sort the linked list in `O(n log n)` time and `O(1)` memory (i.e. constant space)?
    *
    * <b>Constraints:</b><ul>
    * <li> The number of nodes in the list is in the range `[0, 50_000]`.
    * <li> `-100_000 <= Node.val <= 100_000`
    * </ul>
    */
+  // Bottom-up merge sort: O(n log n) time, O(1) memory
   object Solution {
+    /** O(n log n) time, O(1) space */
+    def sortList(head: ListNode): ListNode =
+      if (head == null || head.next == null) head
+      else {
+        val listSize = head.size()
+
+        @scala.annotation.tailrec
+        def sort(size: Int, head: ListNode): ListNode =
+          if (size >= listSize) head
+          else sort(size * 2, splitMerge(head, size))
+
+        sort(1, head)
+      }
+
+    /**
+     * Split and merge list using chunks of `size`
+     *
+     * @return [new head]
+     */
+    private def splitMerge(list: ListNode, size: Int): ListNode = {
+      @scala.annotation.tailrec
+      def _splitMerge(n: ListNode, head: ListNode = null, prev: ListNode = null): ListNode = {
+        if (n == null) head
+        else if (n.next == null) {
+          prev.next = n
+          head
+        } else {
+          val (mid, nextSublist) = split(n, size)
+          val (merged, newPrev) = merge(n, mid)
+          if (head == null) _splitMerge(nextSublist, merged, newPrev)
+          else {
+            prev.next = merged
+            _splitMerge(nextSublist, head, newPrev)
+          }
+        }
+      }
+      _splitMerge(list)
+    }
+
+    /**
+     * Split list into 2 chunks of `size`
+     *
+     * 1. Find `middle` and `end` of the list
+     * 2. Disconnect `middle` from the previous node
+     * 3. Disconnect `end` from the next node
+     *
+     * INVARIANT: `start != null && start.next != null`
+     *
+     * @return ([middle of the list], [next sublist])
+     */
+    private def split(start: ListNode, size: Int): (ListNode, ListNode) = {
+      require(start != null)
+      require(start.next != null)
+
+      @scala.annotation.tailrec
+      def _findMidPrevWithEnd(i: Int, slow: ListNode, fast: ListNode): (ListNode, ListNode) = {
+        if (i <= 1 || slow.next == null) (slow, fast)
+        else {
+          val nextFast =
+            if (fast.next == null) fast
+            else if (fast.next.next == null) fast.next
+            else fast.next.next
+          _findMidPrevWithEnd(i - 1, slow.next, nextFast)
+        }
+      }
+
+      val (midPrev, end) = _findMidPrevWithEnd(size, start, start.next)
+
+      val mid = midPrev.next
+      midPrev.next = null
+
+      val nextSublist = end.next
+      end.next = null
+
+      (mid, nextSublist)
+    }
+
+    /**
+     * Merge 2 sorted lists in place, updating `next` pointers
+     *
+     * INVARIANT: `list1 != null || list2 != null`
+     *
+     * @return ([merged list head], [merged list last])
+     */
+    private def merge(list1: ListNode, list2: ListNode): (ListNode, ListNode) = {
+      require(list1 != null || list2 != null)
+
+      @scala.annotation.tailrec
+      def _merge(l1: ListNode, l2: ListNode, head: ListNode = null, prev: ListNode = null): (ListNode, ListNode) = {
+        if (l1 == null && l2 == null) (head, prev)
+        else if (l2 == null && head == null) (l1, l1.last())
+        else if (l2 == null) {
+          prev.next = l1
+          (head, l1.last())
+        }
+        else if (l1 == null) _merge(l2, l1, head, prev)
+        else if (l1.x <= l2.x && head == null) _merge(l1.next, l2, l1, l1)
+        else if (l1.x <= l2.x) {
+          prev.next = l1
+          _merge(l1.next, l2, head, prev.next)
+        }
+        else _merge(l2, l1, head, prev)
+      }
+      _merge(list1, list2)
+    }
+
+    implicit class ListNodeSize(head: ListNode) {
+      /** O(n) time, O(1) space */
+      def size(): Int = _size(head, 0)
+      @scala.annotation.tailrec
+      private def _size(n: ListNode, rsf: Int): Int =
+        if (n == null) rsf
+        else _size(n.next, rsf + 1)
+
+      /** O(n) time, O(1) space */
+      def last(): ListNode = _last(head)
+      @scala.annotation.tailrec
+      private def _last(current: ListNode): ListNode = {
+        if (current == null || current.next == null) current
+        else _last(current.next)
+      }
+    }
+  }
+
+  // Top-down merge sort: O(n log n) time, O(log n) memory
+  object SolutionTopDown {
     import scala.annotation.tailrec
 
     def sortList(head: ListNode): ListNode =
@@ -79,16 +205,6 @@ class d2020_10_13 extends AnyWordSpec with Matchers {
       }
     }
   }
-
-  class ListNode(_x: Int = 0, _next: ListNode = null) {
-    var next: ListNode = _next
-    var x: Int = _x
-
-    override def toString: String = s"$x,$next"
-  }
-  private def ln(x: Int, next: ListNode = null) =
-    new ListNode(x, next)
-
   object SolutionWithMutableBufferAndMutateInput {
     import collection.mutable
     import scala.annotation.tailrec
@@ -116,7 +232,6 @@ class d2020_10_13 extends AnyWordSpec with Matchers {
         head
       }
   }
-
   object SolutionWithMutableBuffer {
     import collection.mutable
     import scala.annotation.tailrec
@@ -141,7 +256,6 @@ class d2020_10_13 extends AnyWordSpec with Matchers {
         bufferToLn(buffer.length - 1, null)
       }
   }
-
   object SolutionMergeImmutable {
     import scala.annotation.tailrec
 
@@ -189,10 +303,8 @@ class d2020_10_13 extends AnyWordSpec with Matchers {
     }
   }
 
+  // Bottom-up merge sort: O(n log n) time, O(1) memory
   object SolutionBottomUp {
-    private var tail: ListNode = new ListNode()
-    private var nextSublist: ListNode = new ListNode()
-
     def sortList(head: ListNode): ListNode =
       if (head == null || head.next == null) head
       else {
@@ -201,10 +313,12 @@ class d2020_10_13 extends AnyWordSpec with Matchers {
         val dummyHead: ListNode = new ListNode()
         var size: Int = 1
         while (size < n) {
-          tail = dummyHead
+          var tail = dummyHead
           while (start != null && start.next != null) {
-            val mid: ListNode = split(start, size)
-            merge(start, mid)
+            val (mid, nextSublist) = split(start, size)
+            val (merged, newTail) = merge(start, mid)
+            tail.next = merged
+            tail = newTail
             start = nextSublist
           }
           if (start != null && start.next == null) {
@@ -218,26 +332,24 @@ class d2020_10_13 extends AnyWordSpec with Matchers {
         dummyHead.next
       }
 
-    private def split(start: ListNode, size: Int): ListNode = {
+    private def split(start: ListNode, size: Int): (ListNode, ListNode) = {
       var midPrev = start
       var end: ListNode = start.next
       // use fast and slow approach to find middle and end of second linked list
-      var i = 1
-      for (_ <- 1 until size if midPrev.next != null || end.next != null) {
+      for (_ <- 1 until size if midPrev.next != null) {
         if (end.next != null)
           end = if (end.next.next != null) end.next.next else end.next
-        if (midPrev.next != null)
-          midPrev = midPrev.next
+        midPrev = midPrev.next
       }
       val mid = midPrev.next
       midPrev.next = null
-      nextSublist = end.next
+      val nextSublist = end.next
       end.next = null
-      // return the start of second linked list
-      mid
+      // return the start of second linked list and next sublist
+      (mid, nextSublist)
     }
 
-    private def merge(xs: ListNode, ys: ListNode): Unit = {
+    private def merge(xs: ListNode, ys: ListNode): (ListNode, ListNode) = {
       val dummyHead: ListNode = new ListNode()
       var newTail = dummyHead
       var list1 = xs
@@ -258,10 +370,7 @@ class d2020_10_13 extends AnyWordSpec with Matchers {
       // traverse till the end of merged list to get the newTail
       while (newTail.next != null)
         newTail = newTail.next
-      // link the old tail with the head of merged list
-      tail.next = dummyHead.next
-      // update the old tail to the new tail of merged list
-      tail = newTail
+      (dummyHead.next, newTail)
     }
 
     private def getSize(head: ListNode): Int = {
@@ -273,6 +382,28 @@ class d2020_10_13 extends AnyWordSpec with Matchers {
       }
       cnt
     }
+  }
+
+  class ListNode(_x: Int = 0, _next: ListNode = null) {
+    var next: ListNode = _next
+    var x: Int = _x
+
+    override def toString: String = s"$x,$next"
+  }
+  private def ln(x: Int, next: ListNode = null) =
+    new ListNode(x, next)
+
+  private def arrayToLn(arr: Array[Int]): ListNode = {
+    val root = ln(arr(0))
+    var current = root
+
+    for (i <- 1 until arr.length) {
+      val next = ln(arr(i))
+      current.next = next
+      current = next
+    }
+
+    root
   }
 
   "Example 1: [4,2,1,3]" in {
@@ -288,34 +419,55 @@ class d2020_10_13 extends AnyWordSpec with Matchers {
   "Example 3: []" in {
     Solution.sortList(null) shouldBe null
   }
+  "[1]" in {
+    Solution.sortList(ln(1)).toString shouldBe ln(1).toString
+  }
 
-  "My test: max size" in {
-    import util.Random
+  private val MaxSize = 500_000
 
-    def arrayToLn(arr: Array[Int]): ListNode = {
-      val root = ln(arr(0))
-      var current = root
-
-      for (i <- 1 until arr.length) {
-        val next = ln(arr(i))
-        current.next = next
-        current = next
-      }
-
-      root
-    }
-
-    //val length = 29362
-    val length = 50000
-    val arr = Array.ofDim[Int](length)
-    for (i <- 1 until length) {
-      arr(i) = Random.nextInt(200001) - 100000
-    }
+  s"[random repeat $MaxSize] check only first" in {
+    val arr = Array.ofDim[Int](MaxSize)
+    for (i <- 1 until MaxSize) arr(i) = util.Random.nextInt(200001) - 100000
     val input = arrayToLn(arr)
+
+    val result = Solution.sortList(input)
+
+    result.x shouldBe arr.min
+  }
+
+  s"[random repeat $MaxSize]" in {
+    val arr = Array.ofDim[Int](MaxSize)
+    for (i <- 1 until MaxSize) arr(i) = util.Random.nextInt(200001) - 100000
+    val input = arrayToLn(arr)
+
     val result = Solution.sortList(input)
 
     var current = result
     for (x <- arr.sorted) {
+      current.x shouldBe x
+      current = current.next
+    }
+    current shouldBe null
+  }
+  s"[1..$MaxSize] best case" in {
+    val arr = (1 to MaxSize).toArray
+    val input = arrayToLn(arr)
+    val result = Solution.sortList(input)
+
+    var current = result
+    for (x <- 1 to MaxSize) {
+      current.x shouldBe x
+      current = current.next
+    }
+    current shouldBe null
+  }
+  s"[$MaxSize..1] worst case" in {
+    val arr = (MaxSize to 1 by -1).toArray
+    val input = arrayToLn(arr)
+    val result = Solution.sortList(input)
+
+    var current = result
+    for (x <- 1 to MaxSize) {
       current.x shouldBe x
       current = current.next
     }

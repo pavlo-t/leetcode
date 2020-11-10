@@ -1,5 +1,9 @@
+#![allow(dead_code)]
+
+use std::fmt;
+
 //Definition for singly-linked list.
-#[derive(PartialEq, Eq, Clone, Debug)]
+#[derive(PartialEq, Eq, Clone)]
 pub struct ListNode {
     pub val: i32,
     pub next: Option<Box<ListNode>>,
@@ -16,22 +20,32 @@ impl ListNode {
     }
 }
 
+impl fmt::Debug for ListNode {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        if self.next.is_none() { write!(f, "{}", self.val) } else {
+            write!(f, "{},", self.val)?;
+            self.next.as_ref().unwrap().fmt(f)
+        }
+    }
+}
+
 /// ### Sort List
 ///
-/// Given the head of a linked list, return the list after sorting it in ascending order.
+/// Given the `head` of a linked list, return _the list after sorting it in **ascending order**_.
 ///
-/// __Follow up__: Can you sort the linked list in <code>O(n log<sub>n</sub>)</code> time
-/// and <code>O(1) memory</code> (i.e. constant space)?
+/// __Follow up__:
+/// Can you sort the linked list in `O(n log n)` time and `O(1) memory` (i.e. constant space)?
 ///
-/// <b>Constraints:</b><ul>
-/// <li> The number of nodes in the list is in the range <code>[0, 5 * 10<sup>4</sup>]</code>.
-/// <li> <code>-10<sup>5</sup> <= Node.val <= 10<sup>5</sup></code>
-/// </ul>
+/// __Constraints:__
+///
+/// - The number of nodes in the list is in the range `[0,50_000]`.
+/// - `-100_000 <= Node.val <= 100_000`
 struct Solution {}
 
-#[allow(dead_code)]
+struct Solution1 {}
+
 impl Solution {
-    pub fn sort_list_vector(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+    pub fn sort_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
         let mut values = Vec::new();
         let mut tmp = &head;
         while let Some(n) = tmp {
@@ -49,14 +63,16 @@ impl Solution {
 
         tmp
     }
+}
 
+impl Solution1 {
     pub fn sort_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
         match head {
             None => None,
             Some(h) if h.next == None => Some(h),
             Some(h) => {
-                let (left, right) = Solution::split(Some(h));
-                Solution::merge(Solution::sort_list(left), Solution::sort_list(right))
+                let (left, right) = Self::split(Some(h));
+                Self::merge(Self::sort_list(left), Self::sort_list(right))
             }
         }
     }
@@ -131,10 +147,10 @@ impl Solution {
             (r, None) => r,
             (Some(x), Some(y)) => {
                 if x.val <= y.val {
-                    let next = Solution::merge(x.next, Some(y));
+                    let next = Self::merge(x.next, Some(y));
                     Some(Box::new(ListNode { val: x.val, next }))
                 } else {
-                    let next = Solution::merge(Some(x), y.next);
+                    let next = Self::merge(Some(x), y.next);
                     Some(Box::new(ListNode { val: y.val, next }))
                 }
             }
@@ -152,7 +168,7 @@ mod tests {
     }
 
     #[test]
-    fn example_1() {
+    fn example_1_list_4_2_1_3() {
         let input = ln(4, ln(2, ln(1, ln(3, None))));
         let expected = ln(1, ln(2, ln(3, ln(4, None))));
 
@@ -162,7 +178,7 @@ mod tests {
     }
 
     #[test]
-    fn example_2() {
+    fn example_2_list_n1_5_3_4_0() {
         let input = ln(-1, ln(5, ln(3, ln(4, ln(0, None)))));
         let expected = ln(-1, ln(0, ln(3, ln(4, ln(5, None)))));
 
@@ -172,7 +188,7 @@ mod tests {
     }
 
     #[test]
-    fn example_3() {
+    fn example_3_empty_list() {
         let input = None;
         let expected = None;
 
@@ -182,7 +198,7 @@ mod tests {
     }
 
     #[test]
-    fn test_1_el() {
+    fn test_1_element_list() {
         let input = ListNode { val: 1, next: None };
         let expected = Some(Box::new(ListNode { val: 1, next: None }));
 
@@ -191,29 +207,54 @@ mod tests {
         assert_eq!(result, expected);
     }
 
+    /// If getting stack overflow:
+    ///
+    /// ```sh
+    /// thread 'c2020_10::d2020_10_13::tests::max_size' has overflowed its stack
+    /// fatal runtime error: stack overflow
+    /// ```
+    ///
+    /// Add `RUST_MIN_STACK=33554432` to env
+    #[test]
+    fn test_max_size_list() {
+        let size = 50_000;
+        // let size = 50;
+
+        let mut input: Option<Box<ListNode>> = None;
+        let mut expected: Option<Box<ListNode>> = None;
+        for i in 1..=size {
+            input = ln(i, input);
+            expected = ln(size + 1 - i, expected);
+        }
+
+        let result = Solution::sort_list(input);
+
+        assert_eq!(result, expected);
+    }
+
     // =============================================================================================
 
-    #[test]
-    fn test_split_odd() {
-        let input = ln(1, ln(2, ln(3, ln(4, ln(5, None)))));
-        let x_left = ln(5, ln(3, ln(1, None)));
-        let x_right = ln(4, ln(2, None));
-
-        let (left, right) = Solution::split(input);
-
-        assert_eq!(left, x_left);
-        assert_eq!(right, x_right);
-    }
-
-    #[test]
-    fn test_split_even() {
-        let input = ln(1, ln(2, ln(3, ln(4, None))));
-        let x_left = ln(3, ln(1, None));
-        let x_right = ln(4, ln(2, None));
-
-        let (left, right) = Solution::split(input);
-
-        assert_eq!(left, x_left);
-        assert_eq!(right, x_right);
-    }
+    // #[test]
+    // fn test_split_odd() {
+    //     let input = ln(1, ln(2, ln(3, ln(4, ln(5, None)))));
+    //     let x_left = ln(5, ln(3, ln(1, None)));
+    //     let x_right = ln(4, ln(2, None));
+    //
+    //     let (left, right) = Solution::split(input);
+    //
+    //     assert_eq!(left, x_left);
+    //     assert_eq!(right, x_right);
+    // }
+    //
+    // #[test]
+    // fn test_split_even() {
+    //     let input = ln(1, ln(2, ln(3, ln(4, None))));
+    //     let x_left = ln(3, ln(1, None));
+    //     let x_right = ln(4, ln(2, None));
+    //
+    //     let (left, right) = Solution::split(input);
+    //
+    //     assert_eq!(left, x_left);
+    //     assert_eq!(right, x_right);
+    // }
 }
