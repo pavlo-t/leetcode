@@ -4,14 +4,13 @@ struct Solution;
 
 struct SolutionBuiltins;
 
-// Builtins
-impl Solution {
+impl SolutionBuiltins {
     pub fn flip_and_invert_image(a: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
         a.iter().map(|r| r.iter().rev().map(|i| i ^ 1).collect()).collect()
     }
 }
 
-impl SolutionBuiltins {
+impl Solution {
     pub fn flip_and_invert_image(a: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
         let len = a[0].len();
         let mut result = Vec::with_capacity(len);
