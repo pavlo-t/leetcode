@@ -38,6 +38,33 @@ class d2020_11_13 extends AnyWordSpec with Matchers {
    */
   object Solution {
     def connect(root: Node): Node =
+      if (root == null) null
+      else if (root.left == null) new Node(root.value)
+      else {
+        val result = new Node(root.value)
+        def deepCopy(from: Node, to: Node): Unit =
+          if (from != null && from.left != null) {
+            to.left = new Node(from.left.value)
+            to.right = new Node(from.right.value)
+            deepCopy(from.left, to.left)
+            deepCopy(from.right, to.right)
+          }
+        def _connect(n: Node): Unit =
+          if (n != null && n.left != null) {
+            n.left.next = n.right
+            if (n.next != null) n.right.next = n.next.left
+            _connect(n.left)
+            _connect(n.right)
+          }
+        deepCopy(root, result)
+        _connect(result)
+
+        result
+      }
+  }
+
+  object SolutionRecursionMutation {
+    def connect(root: Node): Node =
       if (root == null || root.left == null) root
       else {
         root.left.next = root.right
