@@ -105,6 +105,12 @@ class d2020_11_20 extends AnyWordSpec with Matchers {
   "(nums = [1,1], target = 1) -> true" in {
     search(Array(1, 1), 1) shouldBe true
   }
+  "(nums = [1,2], target = 1) -> true" in {
+    search(Array(1, 2), 1) shouldBe true
+  }
+  "(nums = [1,2], target = 2) -> true" in {
+    search(Array(1, 2), 2) shouldBe true
+  }
 
   "(nums = [2,0,1], target = 0) -> true" in {
     search(Array(2, 0, 1), 0) shouldBe true
