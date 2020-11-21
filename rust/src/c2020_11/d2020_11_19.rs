@@ -3,37 +3,32 @@ struct Solution;
 impl Solution {
     pub fn decode_string(s: String) -> String {
         let mut data = vec![(1, String::new())];
-        let mut reading_digit = false;
+        let mut current_k = 0;
 
         for c in s.chars() {
             match c {
-                '0'..='9' if reading_digit => {
-                    let mut last = data.last_mut().unwrap();
-                    last.0 = last.0 * 10 + c.to_digit(10).unwrap();
+                '0'..='9' if current_k == 0 => {
+                    current_k = c.to_digit(10).unwrap();
                 }
                 '0'..='9' => {
-                    reading_digit = true;
-                    data.push((c.to_digit(10).unwrap(), String::new()));
+                    current_k = current_k * 10 + c.to_digit(10).unwrap();
                 }
-                '[' => { reading_digit = false; }
-                ']' => {
-                    let (cnt, pat) = data.pop().unwrap();
-                    let sub_s = std::iter::repeat(pat).take(cnt as usize).collect::<String>();
-                    let last = data.last_mut().unwrap();
-
-                    last.1.push_str(&sub_s);
+                '[' => {
+                    data.push((current_k, String::new()));
+                    current_k = 0;
                 }
                 'a'..='z' => {
-                    let last = data.last_mut().unwrap();
-                    last.1.push(c)
+                    data.last_mut().unwrap().1.push(c);
+                }
+                ']' => {
+                    let (k, pat) = data.pop().unwrap();
+                    data.last_mut().unwrap().1.push_str(&pat.repeat(k as usize));
                 }
                 _ => panic!("Unsupported char: {}", c),
             };
         }
 
-        let (_, result) = data.first().unwrap().to_owned();
-
-        result
+        data.first().unwrap().to_owned().1
     }
 }
 
