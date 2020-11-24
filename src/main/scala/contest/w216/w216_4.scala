@@ -35,7 +35,7 @@ class w216_4 extends AnyWordSpec with Matchers {
       for (Array(actual, initial) <- tasks.sortInPlaceBy(t => t(1) - t(0))) {
         totalEnergy += actual
         if (totalEnergy < initial)
-          totalEnergy += initial - totalEnergy
+          totalEnergy = initial
       }
 
       totalEnergy
