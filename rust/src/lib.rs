@@ -1,6 +1,8 @@
 // #[macro_use]
 // extern crate pretty_assertions;
 
+mod contest;
+
 mod c2020_10;
 mod c2020_11;
-mod contest;
+mod c2020_12;
