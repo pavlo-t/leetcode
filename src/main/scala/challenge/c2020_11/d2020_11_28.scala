@@ -134,6 +134,12 @@ class d2020_11_28 extends AnyWordSpec with Matchers {
     val expected = (50000 to 100000).toArray
     maxSlidingWindow(nums, 50000) shouldBe expected
   }
+  "(nums = [100k ones], k = 50000) -> [50001 ones]" in {
+    val nums = Array.fill(100000)(1)
+    val expected = Array.fill(50001)(1)
+
+    maxSlidingWindow(nums, 50000) shouldBe expected
+  }
   "(nums = 100k elements [10_000,10_000...1,1], k = 50000) -> [10_000,10_000...5001,5001,5000]" in {
     val nums = (10000 to 1 by -1).flatMap(Array.fill(10)(_)).toArray
     val expected = (10000 to 5000 by -1).flatMap(Array.fill(10)(_)).toArray.dropRight(9)
