@@ -12,6 +12,99 @@ function minJumps(arr: number[]): number {
         return map;
     }, new Map<number, number[]>());
 
+    const queue = new dequeue.Queue(0, undefined);
+    const seen: boolean[] = Array(arr.length).fill(false);
+    seen[0] = true;
+
+    let steps = 0;
+
+    while (true) {
+        const i = queue.dequeue();
+
+        if (i === undefined) {
+            steps++;
+            queue.enqueue(undefined);
+        } else {
+            if (i === arr.length - 1) {
+                return steps;
+            }
+
+            map.get(arr[i])!.forEach((j) => {
+                if (!seen[j]) {
+                    seen[j] = true;
+                    queue.enqueue(j);
+                }
+            });
+            map.set(arr[i], []);
+
+            if (i > 0 && !seen[i - 1]) {
+                seen[i - 1] = true;
+                queue.enqueue(i - 1);
+            }
+            if (!seen[i + 1]) {
+                seen[i + 1] = true;
+                queue.enqueue(i + 1);
+            }
+        }
+    }
+}
+
+module dequeue {
+    class Node<T> {
+        val: T;
+        next: Node<T> | undefined;
+
+        constructor(val: T) {
+            this.val = val;
+        }
+    }
+
+    export class Queue<T> {
+        private head: Node<T> | undefined;
+        private last: Node<T> | undefined;
+
+        constructor(x: T, ...xs: T[]) {
+            this.head = new Node(x);
+            let curr = this.head;
+            xs.forEach(x => {
+                const n = new Node(x);
+                curr.next = n;
+                curr = n;
+            });
+            this.last = curr;
+        }
+
+        enqueue(e: T): void {
+            const n = new Node(e);
+            if (this.last) {
+                this.last.next = n;
+            } else {
+                this.head = n;
+                this.last = n;
+            }
+            this.last = n;
+        }
+
+        dequeue(): T | undefined {
+            if (this.head) {
+                const val = this.head.val;
+                this.head = this.head.next;
+                return val;
+            } else {
+                return undefined;
+            }
+        }
+    }
+}
+
+// noinspection JSUnusedLocalSymbols
+function minJumpsQueueWithNulls_34_38_ms(arr: number[]): number {
+    const map = arr.reduce((map, n, i) => {
+        const is = map.get(n);
+        is ? is.push(i) : map.set(n, [i]);
+        return map;
+    }, new Map<number, number[]>());
+
     const queue: (number | undefined)[] = [0, undefined];
     const seen: boolean[] = Array(arr.length).fill(false);
     seen[0] = true;
