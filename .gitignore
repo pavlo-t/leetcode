@@ -5,6 +5,7 @@
 *.iml
 out
 gen
+.bsp
 ### Scala template
 *.class
 *.log
