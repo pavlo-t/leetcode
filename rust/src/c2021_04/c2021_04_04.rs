@@ -1,6 +1,8 @@
+#![allow(dead_code)]
 use std::cell::RefCell;
 
-/// # Design Circular Queue
+/// Design Circular Queue
+/// =====================
 ///
 /// Design your implementation of the circular queue.
 /// The circular queue is a linear data structure in which the operations are performed based on
@@ -222,7 +224,7 @@ mod tests {
             for i in 0..max {
                 assert!(q.en_queue(i));
             }
-            for i in 0..max {
+            for _ in 0..max {
                 assert!(q.de_queue());
             }
         }
