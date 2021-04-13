@@ -1,3 +1,5 @@
+#![allow(non_fmt_panic)]
+
 use std::cell::RefCell;
 use std::collections::HashMap;
 
