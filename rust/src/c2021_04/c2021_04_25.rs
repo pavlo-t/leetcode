@@ -20,11 +20,14 @@ struct Solution;
 impl Solution {
     pub fn rotate_transpose_reflect(matrix: &mut Vec<Vec<i32>>) {
         fn transpose(matrix: &mut Vec<Vec<i32>>) {
+            use std::ptr::swap;
             for r in 0..matrix.len() {
                 for c in r..matrix.len() {
-                    let tmp = matrix[r][c];
-                    matrix[r][c] = matrix[c][r];
-                    matrix[c][r] = tmp;
+                    unsafe {
+                        let rc: *mut i32 = &mut matrix[r][c];
+                        let cr: *mut i32 = &mut matrix[c][r];
+                        swap(rc, cr);
+                    }
                 }
             }
         }
@@ -32,9 +35,7 @@ impl Solution {
             let n = matrix.len();
             for r in 0..n {
                 for c in 0..n / 2 {
-                    let tmp = matrix[r][c];
-                    matrix[r][c] = matrix[r][n - c - 1];
-                    matrix[r][n - c - 1] = tmp;
+                    matrix[r].swap(c, n - c - 1);
                 }
             }
         }
@@ -43,7 +44,7 @@ impl Solution {
         reflect(matrix);
     }
 
-    pub fn rotate(matrix: &mut Vec<Vec<i32>>) {
+    pub fn rotate_solution(matrix: &mut Vec<Vec<i32>>) {
         let n = matrix.len();
         for r in 0..(n + 1) / 2 {
             for c in 0..n / 2 {
@@ -53,6 +54,34 @@ impl Solution {
                 matrix[rr][rc] = matrix[c][rr];
                 matrix[c][rr] = matrix[r][c];
                 matrix[r][c] = tmp;
+            }
+        }
+    }
+
+    pub fn rotate(matrix: &mut Vec<Vec<i32>>) {
+        fn rotate_one(r: usize, c: usize, m: &mut Vec<Vec<i32>>) {
+            use std::ptr::swap;
+
+            let n = m.len();
+            let (rr, rc) = (n - r - 1, n - c - 1);
+            let p0: *mut i32 = &mut m[r][c];
+            let p1: *mut i32 = &mut m[c][rr];
+            let p2: *mut i32 = &mut m[rr][rc];
+            let p3: *mut i32 = &mut m[rc][r];
+
+            unsafe {
+                // 1,2,3,4 -> 2,1,3,4
+                swap(p0, p1);
+                // 2,1,3,4 -> 3,1,2,4
+                swap(p0, p2);
+                // 3,1,2,4 -> 4,1,2,3
+                swap(p0, p3);
+            }
+        }
+        let n = matrix.len();
+        for r in 0..n - 1 {
+            for c in r..n - r - 1 {
+                rotate_one(r, c, matrix);
             }
         }
     }
