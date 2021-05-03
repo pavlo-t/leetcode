@@ -24,10 +24,10 @@
 /// https://leetcode.com/explore/featured/card/may-leetcoding-challenge-2021/598/week-1-may-1st-may-7th/3728/
 struct WordFilter {}
 impl WordFilter {
-    fn new(words: Vec<String>) -> Self {
+    fn new(_words: Vec<String>) -> Self {
         todo!()
     }
-    fn f(&self, prefix: String, suffix: String) -> i32 {
+    fn f(&self, _prefix: String, _suffix: String) -> i32 {
         todo!()
     }
 }
