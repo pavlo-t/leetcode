@@ -117,7 +117,7 @@ mod tests {
 
     #[test]
     fn test27() {
-        let contents = fs::read_to_string("./src/c2021_02/c2021_02_22_test_27.txt").unwrap();
+        let contents = fs::read_to_string("./src/c2021/c2021_02/c2021_02_22_test_27.txt").unwrap();
         let mut dictionary = contents
             .split(|c| c == '\n' || c == ',')
             .map(|s| s.to_string())

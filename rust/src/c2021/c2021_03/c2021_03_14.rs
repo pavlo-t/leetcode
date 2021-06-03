@@ -97,7 +97,7 @@ mod tests {
     /// If getting stack overflow:
     ///
     /// ```sh
-    /// thread 'c2021_03::c2021_03_14::tests::performance1_h1to100_000k2_should_work' has overflowed its stack
+    /// thread 'c2021::c2021_03::c2021_03_14::tests::performance1_h1to100_000k2_should_work' has overflowed its stack
     /// fatal runtime error: stack overflow
     /// ```
     ///

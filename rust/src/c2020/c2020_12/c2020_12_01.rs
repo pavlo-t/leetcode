@@ -108,7 +108,7 @@ mod tests {
     /// If getting stack overflow:
     ///
     /// ```sh
-    /// thread 'c2020_10::d2020_10_13::tests::max_size' has overflowed its stack
+    /// thread 'c2020::c2020_12::d2020_12_01::tests::max_size' has overflowed its stack
     /// fatal runtime error: stack overflow
     /// ```
     ///
