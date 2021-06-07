@@ -141,27 +141,34 @@ mod tests {
         assert_eq!(Solution::max_product(words), 1_000_000);
     }
 
-    // #[test]
-    // fn test_threads() {
-    //     use std::thread;
-    //     let mut handles = vec![];
-    //
-    //     for ti in 0..6 {
-    //         const MAX: i64 = 1_000_000_001;
-    //         let handle = thread::spawn(move || {
-    //             let mut i = 0i64;
-    //             while i < MAX {
-    //                 if i % 100_000_000 == 0 {
-    //                     println!("i = {} in thread {}", i, ti);
-    //                 }
-    //                 i += 1;
-    //             }
-    //         });
-    //         handles.push(handle);
-    //     }
-    //
-    //     for handle in handles {
-    //         handle.join().unwrap();
-    //     }
-    // }
+    // 47.961 - Silent min:000,max:030,turbo:f
+    // 43.783 - Silent min:000,max:033,turbo:f
+    // 28.978 - Silent min:000,max:050,turbo:f
+    // 27.266 - Silent min:000,max:100,turbo:f
+    // 15.379 - Normal min:000,max:100,turbo:t
+    // 15.367 - Boost  min:000,max:100,turbo:t
+    // 15.313 - Boost  min:100,max:100,turbo:t
+    #[test]
+    fn test_threads() {
+        use std::thread;
+        let mut handles = vec![];
+
+        for ti in 0..12 {
+            const MAX: i64 = 1_000_000_001;
+            let handle = thread::spawn(move || {
+                let mut i = 0i64;
+                while i < MAX {
+                    if i % 100_000_000 == 0 {
+                        println!("i = {} in thread {}", i, ti);
+                    }
+                    i += 1;
+                }
+            });
+            handles.push(handle);
+        }
+
+        for handle in handles {
+            handle.join().unwrap();
+        }
+    }
 }
