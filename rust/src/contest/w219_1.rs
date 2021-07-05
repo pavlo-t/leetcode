@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 /// ### 5625. Count of Matches in Tournament
 ///
 /// You are given an integer `n`, the number of teams in a tournament that has strange rules:
@@ -18,7 +19,6 @@
 ///
 /// https://leetcode.com/contest/weekly-contest-219/problems/count-of-matches-in-tournament/
 struct Solution;
-
 impl Solution {
     pub fn number_of_matches(n: i32) -> i32 {
         if n == 2 {
@@ -33,7 +33,6 @@ impl Solution {
         }
     }
 }
-
 
 #[cfg(test)]
 mod tests {

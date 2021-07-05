@@ -1,9 +1,10 @@
-#![allow(non_fmt_panic)]
+#![allow(dead_code)]
 
 use std::cell::RefCell;
 use std::collections::HashMap;
 
-/// # Design Underground System
+/// Design Underground System
+/// =========================
 ///
 /// Implement the `UndergroundSystem` class:
 ///

@@ -1,5 +1,5 @@
+#![allow(dead_code)]
 struct Solution;
-
 impl Solution {
     pub fn valid_mountain_array(arr: Vec<i32>) -> bool {
         if arr.len() < 3 || arr[0] > arr[1] {

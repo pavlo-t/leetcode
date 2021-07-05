@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 /// # Best Time to Buy and Sell Stock with Transaction Fee
 ///
 /// You are given an array `prices` where `prices[i]` is the price of a given stock on the `i`th day,
@@ -17,7 +18,6 @@
 ///
 /// https://leetcode.com/explore/featured/card/march-leetcoding-challenge-2021/590/week-3-march-15th-march-21st/3674/
 struct Solution;
-
 impl Solution {
     pub fn max_profit(prices: Vec<i32>, fee: i32) -> i32 {
         let mut cash = 0;

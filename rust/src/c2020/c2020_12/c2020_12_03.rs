@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 // @formatter:off
 use std::rc::Rc;
 use std::cell::RefCell;

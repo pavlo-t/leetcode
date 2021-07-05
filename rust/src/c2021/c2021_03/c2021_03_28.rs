@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 /// # Reconstruct Original Digits from English
 ///
 /// Given a __non-empty__ string containing an out-of-order English representation of digits `0-9`,

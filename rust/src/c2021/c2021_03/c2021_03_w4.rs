@@ -1,4 +1,6 @@
-/// # Find Smallest Common Element in All Rows
+#![allow(dead_code)]
+/// Find Smallest Common Element in All Rows
+/// ========================================
 ///
 /// Given a matrix `mat` where every row is sorted in __strictly increasing__ order,
 /// return the __smallest common element__ in all rows.

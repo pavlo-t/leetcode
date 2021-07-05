@@ -1,6 +1,5 @@
-// @formatter:off
+#![allow(dead_code)]
 struct Solution;
-// @formatter:on
 impl Solution {
     pub fn longest_substring(s: String, k: i32) -> i32 {
         if s.len() < k as usize {

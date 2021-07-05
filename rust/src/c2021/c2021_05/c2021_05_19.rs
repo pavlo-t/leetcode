@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 /// Minimum Moves to Equal Array Elements II
 /// ========================================
 ///

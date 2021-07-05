@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use rand::prelude::*;
 use std::cell::RefCell;
 
@@ -25,7 +27,6 @@ struct Solution {
     y_max: f64,
     shown: RefCell<Vec<Vec<f64>>>,
 }
-
 impl Solution {
     fn new(radius: f64, x_center: f64, y_center: f64) -> Self {
         Self {

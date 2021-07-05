@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 // @formatter:off
 struct Solution;
 // @formatter:on
@@ -61,6 +62,7 @@ impl Solution {
 }
 // @formatter:off
 
+#[cfg(test)]
 mod tests {
     use super::*;
     use rand::Rng;

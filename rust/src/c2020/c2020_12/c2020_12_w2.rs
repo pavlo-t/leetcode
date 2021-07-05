@@ -1,5 +1,5 @@
+#![allow(dead_code)]
 struct Solution;
-
 impl Solution {
     pub fn find_missing_ranges(nums: Vec<i32>, lower: i32, upper: i32) -> Vec<String> {
         fn range_to_string(lower: i32, upper: i32) -> String {

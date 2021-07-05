@@ -1,5 +1,5 @@
+#![allow(dead_code)]
 struct Solution;
-
 impl Solution {
     pub fn at_most_n_given_digit_set(digits: Vec<String>, n: i32) -> i32 {
         let s = n.to_string();

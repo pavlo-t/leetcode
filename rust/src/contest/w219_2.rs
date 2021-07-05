@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 /// ### 5626. Partitioning Into Minimum Number Of Deci-Binary Numbers
 ///
 /// A decimal number is called __deci-binary__ if each of its digits is either `0` or `1`
@@ -15,13 +16,11 @@
 ///
 /// https://leetcode.com/contest/weekly-contest-219/problems/partitioning-into-minimum-number-of-deci-binary-numbers/
 struct Solution;
-
 impl Solution {
     pub fn min_partitions(n: String) -> i32 {
         n.chars().map(|c| c.to_digit(10).unwrap()).max().unwrap() as i32
     }
 }
-
 
 #[cfg(test)]
 mod tests {

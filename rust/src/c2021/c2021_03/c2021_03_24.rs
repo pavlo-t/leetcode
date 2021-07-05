@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 /// # Advantage Shuffle
 ///
 /// Given two arrays `A` and `B` of equal size,

@@ -1,5 +1,5 @@
+#![allow(dead_code)]
 struct Solution;
-
 impl Solution {
     pub fn decode_string(s: String) -> String {
         let mut data = vec![(1, String::new())];

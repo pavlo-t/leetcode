@@ -1,4 +1,6 @@
-/// # Keys and Rooms
+#![allow(dead_code)]
+/// Keys and Rooms
+/// ==============
 ///
 /// There are `N` rooms and you start in room `0`.
 /// Each room has a distinct number in `0, 1, 2, ..., N-1`,

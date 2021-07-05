@@ -1,4 +1,6 @@
-/// # Stamping The Sequence
+#![allow(dead_code)]
+/// Stamping The Sequence
+/// =====================
 ///
 /// You want to form a `target` string of __lowercase letters__.
 ///
