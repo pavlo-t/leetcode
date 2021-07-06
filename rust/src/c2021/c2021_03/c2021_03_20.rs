@@ -78,7 +78,7 @@ mod tests {
 
     fn check_feq(a: f64, b: f64) {
         const ERROR_MARGIN: f64 = 0.00001;
-        assert!((a - b).abs() < ERROR_MARGIN, format!("{} != {}", a, b));
+        assert!((a - b).abs() < ERROR_MARGIN, "{} != {}", a, b);
     }
 
     #[test]
