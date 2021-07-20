@@ -94,8 +94,8 @@ mod tests {
     fn arr_50000_randoms_start_random_is_true() {
         let mut rng = rand::thread_rng();
         let mut arr = Vec::with_capacity(50000);
-        for _ in 0..50000 { arr.push(rng.gen_range(0, 50000)); }
+        for _ in 0..50000 { arr.push(rng.gen_range(0..=50000)); }
 
-        Solution::can_reach(arr, rng.gen_range(0, 50000));
+        Solution::can_reach(arr, rng.gen_range(0..50000));
     }
 }

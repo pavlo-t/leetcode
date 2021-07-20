@@ -1,5 +1,7 @@
 #![allow(dead_code)]
+
 struct Solution;
+
 impl Solution {
     pub fn longest_substring(s: String, k: i32) -> i32 {
         if s.len() < k as usize {
@@ -74,7 +76,7 @@ mod tests {
         let mut rng = rand::thread_rng();
         let mut s = String::new();
         for _ in 0..10000 {
-            let c = rng.gen_range('a' as u8, 'z' as u8) as char;
+            let c = rng.gen_range('a' as u8..='z' as u8) as char;
             s.push(c);
         }
         assert!(Solution::longest_substring(s, 2) >= 0);

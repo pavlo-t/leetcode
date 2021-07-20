@@ -50,8 +50,8 @@ impl Solution {
     }
     fn next_point_in_square(&self) -> Vec<f64> {
         let mut rng = thread_rng();
-        let x = rng.gen_range(self.x_min, self.x_max);
-        let y = rng.gen_range(self.y_min, self.y_max);
+        let x = rng.gen_range(self.x_min..=self.x_max);
+        let y = rng.gen_range(self.y_min..=self.y_max);
         vec![x, y]
     }
     fn within_circle(&self, p: &[f64]) -> bool {

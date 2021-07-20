@@ -1,4 +1,5 @@
 #![allow(dead_code)]
+
 // @formatter:off
 struct Solution;
 // @formatter:on
@@ -168,8 +169,8 @@ mod tests {
         let mut buildings = Vec::new();
         let mut rng = rand::thread_rng();
         for li in 1..=10000 {
-            let ri = rng.gen_range(li + 1, std::i32::MAX);
-            let hi = rng.gen_range(1, std::i32::MAX);
+            let ri = rng.gen_range(li + 1..=std::i32::MAX);
+            let hi = rng.gen_range(1..=std::i32::MAX);
             buildings.push(vec![li, ri, hi]);
         }
 

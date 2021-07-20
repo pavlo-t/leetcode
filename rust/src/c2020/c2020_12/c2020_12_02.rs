@@ -65,7 +65,7 @@ impl Solution {
     /** Returns a random node's value. */
     fn get_random(&self) -> i32 {
         let mut rng = rand::thread_rng();
-        let i = rng.gen_range(0, self.data.len());
+        let i = rng.gen_range(0..self.data.len());
         self.data[i]
     }
 }
