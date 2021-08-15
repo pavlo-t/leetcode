@@ -3,9 +3,7 @@ package challenge.c2021_08
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-/**
- * [[https://leetcode.com/explore/featured/card/august-leetcoding-challenge-2021/614/week-2-august-8th-august-14th/3889/]]
- */
+/** [[https://leetcode.com/explore/featured/card/august-leetcoding-challenge-2021/614/week-2-august-8th-august-14th/3889/]] */
 class c2021_08_14 extends AnyWordSpec with Matchers {
   /**
    * == Remove Boxes ==
@@ -50,6 +48,7 @@ class c2021_08_14 extends AnyWordSpec with Matchers {
 
       calculatePoints(0, n - 1, 0)
     }
+
     /** [[https://massivealgorithms.blogspot.com/2017/04/leetcode-546-remove-boxes.html]] */
     def removeBoxes_working(boxes: Array[Int]): Int = {
       val n = boxes.length
@@ -71,7 +70,6 @@ class c2021_08_14 extends AnyWordSpec with Matchers {
 
       dp(0)(n - 1)(0)
     }
-
     /** [[https://xiaoguan.gitbooks.io/leetcode/content/LeetCode/546-remove-boxes-hard.html]] */
     def removeBoxes_MemoryLimitExceeded_TooSlow(boxes: Array[Int]): Int = {
       val n = boxes.length
