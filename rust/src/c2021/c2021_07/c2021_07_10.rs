@@ -4,7 +4,7 @@
 ///
 /// A message containing letters from `A-Z` can be __encoded__ into numbers using the following mapping:
 ///
-/// ```
+/// ```text
 /// 'A' -> "1"
 /// 'B' -> "2"
 /// ...
