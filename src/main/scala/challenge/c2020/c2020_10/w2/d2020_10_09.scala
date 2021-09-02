@@ -47,7 +47,7 @@ class d2020_10_09 extends AnyWordSpec with Matchers {
 
     // Decodes a single string to a list of strings.
     def deserialize(data: String): TreeNode = {
-      if (data.length == 0) null
+      if (data.isEmpty) null
       else {
         def loop(xs: Seq[Int]): TreeNode = {
           if (xs.isEmpty) null
@@ -92,7 +92,7 @@ class d2020_10_09 extends AnyWordSpec with Matchers {
 
     // Decodes a single string to a list of strings.
     def deserialize(data: String): TreeNode = {
-      if (data.length == 0) null
+      if (data.isEmpty) null
       else {
         def loop(xs: Seq[Int]): TreeNode = {
           if (xs.isEmpty) null
