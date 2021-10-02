@@ -36,7 +36,7 @@ impl Solution {
         d.iter().for_each(|r| println!("  {:?}", r));
         let (m, n) = (d.len(), d[0].len());
         let (lr, lc) = (m - 1, n - 1);
-        d[lr][lc] = if d[lr][lc] < 0 { -d[lr][lc] + 1 } else { 1 };
+        d[lr][lc] = (1 - d[lr][lc]).max(1);
         for r in (0..lr).rev() {
             d[r][lc] = (d[r + 1][lc] - d[r][lc]).max(1);
         }
