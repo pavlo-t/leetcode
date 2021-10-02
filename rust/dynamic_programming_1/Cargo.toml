@@ -1,0 +1,8 @@
+[package]
+name = "dynamic_programming_1"
+version = "0.1.0"
+edition = "2018"
+
+# https://leetcode.com/study-plan/dynamic-programming/
+
+[dependencies]
