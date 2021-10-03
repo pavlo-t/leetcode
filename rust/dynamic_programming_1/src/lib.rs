@@ -1,2 +1,2 @@
-mod p01;
-mod p02;
+mod d01_1;
+mod d01_2;
