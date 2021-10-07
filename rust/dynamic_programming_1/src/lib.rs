@@ -9,3 +9,5 @@ mod d04_1;
 mod d04_2;
 mod d05_1;
 mod d05_2;
+mod d06_1;
+mod d06_2;
