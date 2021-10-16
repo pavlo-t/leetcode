@@ -20,3 +20,5 @@ mod d09_1;
 mod d09_2;
 mod d10_1;
 mod d10_2;
+mod d11_1;
+mod d11_2;
