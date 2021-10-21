@@ -34,3 +34,5 @@ mod d16_1;
 mod d16_2;
 mod d17_1;
 mod d17_2;
+mod d18_1;
+mod d18_2;
