@@ -36,3 +36,6 @@ mod d17_1;
 mod d17_2;
 mod d18_1;
 mod d18_2;
+mod d19_1;
+mod d19_2;
+mod d19_3;
