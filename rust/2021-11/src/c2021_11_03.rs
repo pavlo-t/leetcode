@@ -24,7 +24,47 @@ use std::rc::Rc;
 /// https://leetcode.com/problems/sum-root-to-leaf-numbers/
 struct Solution;
 impl Solution {
-    pub fn sum_numbers(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+    /// Approach 3: Morris Preorder Traversal.
+    /// https://leetcode.com/problems/sum-root-to-leaf-numbers/solution/
+    pub fn sum_numbers(mut root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        println!("sum_numbers({:?})", root);
+        let mut root_to_leaf = 0;
+        let mut curr_number = 0;
+        let mut steps;
+        while let Some(n) = root.clone() {
+            let nb = n.borrow();
+            if let Some(mut prev) = nb.left.clone() {
+                steps = 1;
+                while prev.borrow().right.is_some() && prev.borrow().right != root {
+                    let prev_r = prev.borrow().right.clone();
+                    prev = prev_r.unwrap();
+                    steps += 1;
+                }
+                if prev.borrow().right.is_none() {
+                    curr_number = curr_number * 10 + nb.val;
+                    prev.borrow_mut().right = root.clone();
+                    root = nb.left.clone();
+                } else {
+                    if prev.borrow().left.is_none() {
+                        root_to_leaf += curr_number;
+                    }
+                    for _ in 0..steps {
+                        curr_number /= 10;
+                    }
+                    prev.borrow_mut().right = None;
+                    root = nb.right.clone();
+                }
+            } else {
+                curr_number = curr_number * 10 + nb.val;
+                if nb.right.is_none() {
+                    root_to_leaf += curr_number;
+                }
+                root = nb.right.clone();
+            }
+        }
+        root_to_leaf
+    }
+    pub fn sum_numbers_iterative_2(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
         println!("sum_numbers({:?})", root);
         let mut stack = vec![(root, 0)];
         let mut result = 0;
@@ -43,7 +83,7 @@ impl Solution {
         }
         result
     }
-    pub fn sum_numbers_iter_1(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+    pub fn sum_numbers_iterative_1(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
         println!("sum_numbers({:?})", root);
         let mut stack = vec![(root.clone(), 0)];
         let mut result = 0;
@@ -150,12 +190,9 @@ mod tests {
         assert_eq!(Solution::sum_numbers(l(7)), 7);
     }
 
+    #[rustfmt::skip]
     fn balanced(v: i32, d: i32) -> T {
-        if d == 0 {
-            N
-        } else {
-            n(v, balanced(v, d - 1), balanced(v, d - 1))
-        }
+        if d == 0 { N } else { n(v, balanced(v, d - 1), balanced(v, d - 1)) }
     }
     #[test]
     fn r_10lvls_of_0() {
@@ -163,7 +200,7 @@ mod tests {
         assert_eq!(Solution::sum_numbers(r), 0);
     }
     #[test]
-    fn r_10lvls_of_1() {
+    fn r_8lvls_of_1() {
         let r = balanced(1, 8);
         assert_eq!(Solution::sum_numbers(r), 1_422_222_208);
     }
