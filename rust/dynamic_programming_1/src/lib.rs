@@ -41,3 +41,6 @@ mod d19_2;
 mod d19_3;
 mod d20_1;
 mod d20_2;
+mod d21_1;
+mod d21_2;
+mod d21_3;
