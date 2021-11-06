@@ -24,9 +24,37 @@ use std::rc::Rc;
 /// https://leetcode.com/problems/sum-root-to-leaf-numbers/
 struct Solution;
 impl Solution {
+    pub fn sum_numbers(mut root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+        println!("sum_numbers({:?})", root);
+        type T = Option<Rc<RefCell<TreeNode>>>;
+        trait SumNumbers {
+            fn sum_numbers(&mut self) -> i32;
+        }
+        impl SumNumbers for T {
+            fn sum_numbers(&mut self) -> i32 {
+                let mut stack = vec![(self.clone(), 0)];
+                let mut result = 0;
+                while let Some((n, mut rsf)) = stack.pop() {
+                    if let Some(n) = n {
+                        let mut n = n.borrow_mut();
+                        rsf = rsf * 10 + n.val;
+                        match (n.left.take(), n.right.take()) {
+                            (None, None) => result += rsf,
+                            (l, r) => {
+                                stack.push((l, rsf));
+                                stack.push((r, rsf));
+                            }
+                        }
+                    }
+                }
+                result
+            }
+        }
+        root.sum_numbers()
+    }
     /// Approach 3: Morris Preorder Traversal.
     /// https://leetcode.com/problems/sum-root-to-leaf-numbers/solution/
-    pub fn sum_numbers(mut root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
+    pub fn sum_numbers_leetcode_morris_preorder(mut root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
         println!("sum_numbers({:?})", root);
         let mut root_to_leaf = 0;
         let mut curr_number = 0;
