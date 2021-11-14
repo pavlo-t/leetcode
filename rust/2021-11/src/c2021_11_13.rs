@@ -59,7 +59,7 @@ impl Solution {
         let n = temperatures.len();
         let mut hottest = 0;
         let mut result = vec![0; n];
-        for (d, &t) in temperatures.iter().enumerate().rev().skip(1) {
+        for (d, &t) in temperatures.iter().enumerate().rev() {
             if t >= hottest {
                 hottest = t;
             } else {
