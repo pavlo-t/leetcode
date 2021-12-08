@@ -79,12 +79,43 @@ impl std::fmt::Debug for NestedInteger {
 mod tests {
     use super::*;
 
-    #[rustfmt::skip] #[inline] fn i(i: i32)                -> NestedInteger { NestedInteger::Int(i) }
-    #[rustfmt::skip] #[inline] fn l(v: Vec<NestedInteger>) -> NestedInteger { NestedInteger::List(v) }
+    macro_rules! ni {
+        ([$($x:tt),*]) => { NestedInteger::List(vec![$(ni![$x]),*]) };
+        ($x:expr)      => { NestedInteger::Int($x) };
+    }
+    macro_rules! v {
+        ($($x:tt),*) => { vec![$(ni![$x]),*] };
+    }
+
+    mod test_macro {
+        use super::*;
+
+        #[rustfmt::skip] #[inline] fn i(i: i32)                -> NestedInteger { NestedInteger::Int(i) }
+        #[rustfmt::skip] #[inline] fn l(v: Vec<NestedInteger>) -> NestedInteger { NestedInteger::List(v) }
+
+        #[rustfmt::skip] #[test] fn l1n()  { assert_eq!(v![1],   vec![i(1)]); }
+        #[rustfmt::skip] #[test] fn l12n() { assert_eq!(v![1,2], vec![i(1),i(2)]); }
+
+        #[rustfmt::skip] #[test] fn ll1nn()   { assert_eq!(v![[1]],   vec![l(vec![i(1)])]); }
+        #[rustfmt::skip] #[test] fn ll12nn()  { assert_eq!(v![[1,2]], vec![l(vec![i(1),i(2)])]); }
+
+        #[rustfmt::skip] #[test] fn ll1l2nnn()  { assert_eq!(v![[1,[2]]], vec![l(vec![i(1),l(vec![i(2)])])]); }
+        #[rustfmt::skip] #[test] fn lll1nnn() { assert_eq!(v![[[1]]], vec![ l(vec![ l(vec![i(1)]) ]) ]); }
+
+        #[rustfmt::skip] #[test] fn ll1nl2nn()  { assert_eq!(v![[1],[2]], vec![l(vec![i(1)]),l(vec![i(2)])]); }
+
+        #[rustfmt::skip] #[test] fn lll1nl2nnll34nnn()  {
+            assert_eq!(
+                v![[[1],[2]],[[3,4]]],
+                vec![l(vec![l(vec![i(1)]), l(vec![i(2)])]), l(vec![l(vec![i(3), i(4)])])]
+            );
+        }
+    }
 
     #[test]
     fn l_l_1_1_n_2_l_1_1_n_n() {
-        let n = vec![l(vec![i(1), i(1)]), i(2), l(vec![i(1), i(1)])];
+        //let n = vec![l(vec![i(1), i(1)]), i(2), l(vec![i(1), i(1)])];
+        let n = v![[1, 1], 2, [1, 1]];
         assert_eq!(Solution::depth_sum_inverse(n), 8);
         // nested_list: [[1, 1], 2, [1, 1]]
         // depth:         2  2   1   2  2
@@ -95,7 +126,8 @@ mod tests {
     }
     #[test]
     fn l_1_l_4_l_6_n_n_n() {
-        let n = vec![i(1), l(vec![i(4), l(vec![i(6)])])];
+        //let n = vec![i(1), l(vec![i(4), l(vec![i(6)])])];
+        let n = v![1, [4, [6]]];
         assert_eq!(Solution::depth_sum_inverse(n), 17);
         // nested_list:  [1, [4, [6]]]
         // depth:         1   2   3
