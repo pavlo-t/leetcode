@@ -22,6 +22,26 @@ class c2020_12_w4 extends AnyWordSpec with Matchers {
    *  - `u` is a node in the binary tree rooted at `root`.
    */
   object Solution {
+    /** 2022-01 week 4 */
+    def findNearestRightNode(root: TreeNode, u: TreeNode): TreeNode = {
+      import collection.immutable.Queue
+
+      @scala.annotation.tailrec
+      def tailRec(curr: Queue[TreeNode],
+                  next: Queue[TreeNode]): TreeNode = {
+        if (curr.isEmpty) tailRec(next, Queue.empty)
+        else curr.dequeue match {
+          case (n, rest) if n.value == u.value => rest.headOption.orNull
+          case (n, rest)                       => tailRec(rest, next.enqueueAll(Iterable(n.left, n.right).filter(_ != null)))
+        }
+      }
+
+      tailRec(Queue(root), Queue.empty)
+    }
+  }
+
+  object SolutionIterative {
+
     import collection.mutable
 
     def findNearestRightNode(root: TreeNode, u: TreeNode): TreeNode = {
@@ -40,6 +60,7 @@ class c2020_12_w4 extends AnyWordSpec with Matchers {
   }
 
   object SolutionRecursionImmutable {
+
     import collection.immutable.Queue
     import scala.annotation.tailrec
 
@@ -53,6 +74,7 @@ class c2020_12_w4 extends AnyWordSpec with Matchers {
           case Some((n, nns))                       => bfs(nns.enqueueAll(Iterable(n.left, n.right).filter(_ != null)))
         }
       }
+
       bfs(Queue(root, null))
     }
   }
