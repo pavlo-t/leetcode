@@ -1,5 +1,5 @@
 #![allow(dead_code)]
-/// 1091. Shortest Path in Binary Matrix
+/// \#1091. Shortest Path in Binary Matrix
 /// ====================================
 ///
 /// Given an `n x n` binary matrix `grid`, return _the length of the shortest __clear path__ in the matrix_.
