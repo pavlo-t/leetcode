@@ -1,28 +1,29 @@
 #![allow(dead_code)]
-/// \#1048. Longest String Chain
-/// ============================
-///
-/// You are given an array of `words` where each word consists of lowercase English letters.
-///
-/// `wordA` is a __predecessor__ of `wordB` if and only if we can insert __exactly one__ letter
-/// anywhere in `wordA` __without changing the order of the other characters__ to make it equal to `wordB`.
-///
-/// - For example, `"abc"` is a __predecessor__ of `"abac"`, while `"cba"` is not a __predecessor__ of `"bcad"`.
-///
-/// A __word chain__ is a sequence of words `[word1, word2, ..., wordk]` with `k >= 1`,
-/// where `word1` is a __predecessor__ of `word2`, `word2` is a __predecessor__ of `word3`, and so on.
-/// A single word is trivially a __word chain__ with `k == 1`.
-///
-/// Return _the __length__ of the __longest possible word__ chain with words chosen from the given list of words_.
-///
-/// __Constraints:__
-///
-/// - `1 <= words.length <= 1000`
-/// - `1 <= words[i].length <= 16`
-/// - `words[i]` only consists of lowercase English letters.
-///
-/// https://leetcode.com/problems/longest-string-chain
-struct Solution;
+//! \#1048. Longest String Chain
+//! ============================
+//!
+//! You are given an array of `words` where each word consists of lowercase English letters.
+//!
+//! `wordA` is a __predecessor__ of `wordB` if and only if we can insert __exactly one__ letter
+//! anywhere in `wordA` __without changing the order of the other characters__ to make it equal to `wordB`.
+//!
+//! - For example, `"abc"` is a __predecessor__ of `"abac"`, while `"cba"` is not a __predecessor__ of `"bcad"`.
+//!
+//! A __word chain__ is a sequence of words `[word1, word2, ..., wordk]` with `k >= 1`,
+//! where `word1` is a __predecessor__ of `word2`, `word2` is a __predecessor__ of `word3`, and so on.
+//! A single word is trivially a __word chain__ with `k == 1`.
+//!
+//! Return _the __length__ of the __longest possible word__ chain with words chosen from the given list of words_.
+//!
+//! __Constraints:__
+//!
+//! - `1 <= words.length <= 1000`
+//! - `1 <= words[i].length <= 16`
+//! - `words[i]` only consists of lowercase English letters.
+//!
+//! <https://leetcode.com/problems/longest-string-chain>
+
+pub struct Solution;
 impl Solution {
     pub fn longest_str_chain(words: Vec<String>) -> i32 {
         fn is_predecessor(w1: &[u8], w2: &[u8]) -> bool {

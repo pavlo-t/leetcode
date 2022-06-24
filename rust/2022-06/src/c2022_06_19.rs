@@ -1,28 +1,29 @@
 #![allow(dead_code)]
-/// #\1268. Search Suggestions System
-/// =================================
-///
-/// You are given an array of strings `products` and a string `searchWord`.
-///
-/// Design a system that suggests at most three product names from `products`
-/// after each character of `searchWord` is typed.
-/// Suggested products should have common prefix with `searchWord`.
-/// If there are more than three products with a common prefix return the three lexicographically minimums products.
-///
-/// Return _a list of lists of the suggested products after each character of `searchWord` is typed_.
-///
-/// __Constraints:__
-///
-/// - `1 <= products.length <= 1000`
-/// - `1 <= products[i].length <= 3000`
-/// - `1 <= sum(products[i].length) <= 20_000`
-/// - All the strings of `products` are __unique__.
-/// - `products[i]` consists of lowercase English letters.
-/// - `1 <= searchWord.length <= 1000`
-/// - `searchWord` consists of lowercase English letters.
-///
-/// https://leetcode.com/problems/search-suggestions-system
-struct Solution;
+//! \#1268. Search Suggestions System
+//! =================================
+//!
+//! You are given an array of strings `products` and a string `searchWord`.
+//!
+//! Design a system that suggests at most three product names from `products`
+//! after each character of `searchWord` is typed.
+//! Suggested products should have common prefix with `searchWord`.
+//! If there are more than three products with a common prefix return the three lexicographically minimums products.
+//!
+//! Return _a list of lists of the suggested products after each character of `searchWord` is typed_.
+//!
+//! __Constraints:__
+//!
+//! - `1 <= products.length <= 1000`
+//! - `1 <= products[i].length <= 3000`
+//! - `1 <= sum(products[i].length) <= 20_000`
+//! - All the strings of `products` are __unique__.
+//! - `products[i]` consists of lowercase English letters.
+//! - `1 <= searchWord.length <= 1000`
+//! - `searchWord` consists of lowercase English letters.
+//!
+//! <https://leetcode.com/problems/search-suggestions-system>
+
+pub struct Solution;
 impl Solution {
     pub fn suggested_products(mut products: Vec<String>, search_word: String) -> Vec<Vec<String>> {
         #[derive(Default)]

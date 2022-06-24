@@ -1,31 +1,32 @@
 #![allow(dead_code)]
-/// \#88. Merge Sorted Array
-/// ========================
-///
-/// You are given two integer arrays `nums1` and `nums2`, sorted in __non-decreasing order__,
-/// and two integers `m` and `n`, representing the number of elements in `nums1` and `nums2` respectively.
-///
-/// __Merge__ `nums1` and `nums2` into a single array sorted in __non-decreasing order__.
-///
-/// The final sorted array should not be returned by the function,
-/// but instead be _stored inside the array_ `nums1`.
-/// To accommodate this, `nums1` has a length of `m + n`,
-/// where the first `m` elements denote the elements that should be merged,
-/// and the last `n` elements are set to `0` and should be ignored.
-/// `nums2` has a length of `n`.
-///
-/// __Constraints:__
-///
-/// - `nums1.length == m + n`
-/// - `nums2.length == n`
-/// - `0 <= m, n <= 200`
-/// - `1 <= m + n <= 200`
-/// - `-1_000_000_000 <= nums1[i], nums2[j] <= 1_000_000_000`
-///
-/// __Follow up:__ Can you come up with an algorithm that runs in `O(m + n)` time?
-///
-/// https://leetcode.com/problems/merge-sorted-array
-struct Solution;
+//! \#88. Merge Sorted Array
+//! ========================
+//!
+//! You are given two integer arrays `nums1` and `nums2`, sorted in __non-decreasing order__,
+//! and two integers `m` and `n`, representing the number of elements in `nums1` and `nums2` respectively.
+//!
+//! __Merge__ `nums1` and `nums2` into a single array sorted in __non-decreasing order__.
+//!
+//! The final sorted array should not be returned by the function,
+//! but instead be _stored inside the array_ `nums1`.
+//! To accommodate this, `nums1` has a length of `m + n`,
+//! where the first `m` elements denote the elements that should be merged,
+//! and the last `n` elements are set to `0` and should be ignored.
+//! `nums2` has a length of `n`.
+//!
+//! __Constraints:__
+//!
+//! - `nums1.length == m + n`
+//! - `nums2.length == n`
+//! - `0 <= m, n <= 200`
+//! - `1 <= m + n <= 200`
+//! - `-1_000_000_000 <= nums1[i], nums2[j] <= 1_000_000_000`
+//!
+//! __Follow up:__ Can you come up with an algorithm that runs in `O(m + n)` time?
+//!
+//! <https://leetcode.com/problems/merge-sorted-array>
+
+pub struct Solution;
 impl Solution {
     pub fn merge(nums1: &mut Vec<i32>, m: i32, nums2: &mut Vec<i32>, n: i32) {
         let (mut m, mut n) = (m as usize, n as usize);

@@ -1,22 +1,23 @@
 #![allow(dead_code)]
-/// \#1695. Maximum Erasure Value
-/// =============================
-///
-/// You are given an array of positive integers `nums` and want to erase a subarray containing __unique elements__.
-/// The __score__ you get by erasing the subarray is equal to the __sum__ of its elements.
-///
-/// Return _the __maximum score__ you can get by erasing __exactly one__ subarray_.
-///
-/// An array `b` is called to be a subarray of `a` if it forms a contiguous subsequence of `a`,
-/// that is, if it is equal to `a[l],a[l+1],...,a[r]` for some `(l,r)`.
-///
-/// __Constraints:__
-///
-/// - `1 <= nums.length <= 100_000`
-/// - `1 <= nums[i] <= 10_000`
-///
-/// https://leetcode.com/problems/maximum-erasure-value
-struct Solution;
+//! \#1695. Maximum Erasure Value
+//! =============================
+//!
+//! You are given an array of positive integers `nums` and want to erase a subarray containing __unique elements__.
+//! The __score__ you get by erasing the subarray is equal to the __sum__ of its elements.
+//!
+//! Return _the __maximum score__ you can get by erasing __exactly one__ subarray_.
+//!
+//! An array `b` is called to be a subarray of `a` if it forms a contiguous subsequence of `a`,
+//! that is, if it is equal to `a[l],a[l+1],...,a[r]` for some `(l,r)`.
+//!
+//! __Constraints:__
+//!
+//! - `1 <= nums.length <= 100_000`
+//! - `1 <= nums[i] <= 10_000`
+//!
+//! <https://leetcode.com/problems/maximum-erasure-value>
+
+pub struct Solution;
 impl Solution {
     pub fn maximum_unique_subarray(nums: Vec<i32>) -> i32 {
         use std::collections::HashSet;

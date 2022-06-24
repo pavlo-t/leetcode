@@ -1,23 +1,24 @@
 #![allow(dead_code)]
-/// \#1197. Minimum Knight Moves
-/// ============================
-///
-/// In an __infinite__ chess board with coordinates from `-infinity` to `+infinity`,
-/// you have a __knight__ at square `[0, 0]`.
-///
-/// A knight has 8 possible moves it can make, as illustrated below.
-/// Each move is two squares in a cardinal direction, then one square in an orthogonal direction.
-///
-/// Return _the minimum number of steps needed to move the knight to the square `[x, y]`_.
-/// It is guaranteed the answer exists.
-///
-/// __Constraints:__
-///
-/// - `-300 <= x, y <= 300`
-/// - `0 <= |x| + |y| <= 300`
-///
-/// https://leetcode.com/problems/minimum-knight-moves
-struct Solution;
+//! \#1197. Minimum Knight Moves
+//! ============================
+//!
+//! In an __infinite__ chess board with coordinates from `-infinity` to `+infinity`,
+//! you have a __knight__ at square `[0, 0]`.
+//!
+//! A knight has 8 possible moves it can make, as illustrated below.
+//! Each move is two squares in a cardinal direction, then one square in an orthogonal direction.
+//!
+//! Return _the minimum number of steps needed to move the knight to the square `[x, y]`_.
+//! It is guaranteed the answer exists.
+//!
+//! __Constraints:__
+//!
+//! - `-300 <= x, y <= 300`
+//! - `0 <= |x| + |y| <= 300`
+//!
+//! <https://leetcode.com/problems/minimum-knight-moves>
+
+pub struct Solution;
 impl Solution {
     /// adopted after seeing previous solution `rust/2020_2021-09/src/c2021/c2021_05/c2021_05_w3.rs`
     pub fn min_knight_moves(x: i32, y: i32) -> i32 {

@@ -1,16 +1,17 @@
 #![allow(dead_code)]
-/// \#3. Longest Substring Without Repeating Characters
-/// ===================================================
-///
-/// Given a string `s`, find the length of the __longest substring__ without repeating characters.
-///
-/// __Constraints:__
-///
-/// - `0 <= s.length <= 50_000`
-/// - `s` consists of English letters, digits, symbols and spaces.
-///
-/// https://leetcode.com/problems/longest-substring-without-repeating-characters
-struct Solution;
+//! \#3. Longest Substring Without Repeating Characters
+//! ===================================================
+//!
+//! Given a string `s`, find the length of the __longest substring__ without repeating characters.
+//!
+//! __Constraints:__
+//!
+//! - `0 <= s.length <= 50_000`
+//! - `s` consists of English letters, digits, symbols and spaces.
+//!
+//! <https://leetcode.com/problems/longest-substring-without-repeating-characters>
+
+pub struct Solution;
 impl Solution {
     pub fn length_of_longest_substring(s: String) -> i32 {
         use std::collections::HashSet;

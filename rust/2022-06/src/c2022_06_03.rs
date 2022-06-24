@@ -1,34 +1,35 @@
 #![allow(dead_code)]
-/// \#304. Range Sum Query 2D - Immutable
-/// =====================================
-///
-/// Given a 2D matrix `matrix`, handle multiple queries of the following type:
-///
-/// - Calculate the __sum__ of the elements of `matrix` inside the rectangle
-///   defined by its __upper left corner__ `(row1, col1)` and __lower right corner__ `(row2, col2)`.
-///
-/// Implement the `NumMatrix` class:
-///
-/// - `NumMatrix(int[][] matrix)` Initializes the object with the integer matrix `matrix`.
-/// - `int sumRegion(int row1, int col1, int row2, int col2)` Returns the __sum__ of the elements of `matrix` inside
-///   the rectangle defined by its __upper left corner__ `(row1, col1)` and __lower right corner__ `(row2, col2)`.
-///
-/// __Constraints:__
-///
-/// - `m == matrix.length`
-/// - `n == matrix[i].length`
-/// - `1 <= m, n <= 200`
-/// - `-100_000 <= matrix[i][j] <= 100_000`
-/// - `0 <= row1 <= row2 < m`
-/// - `0 <= col1 <= col2 < n`
-/// - At most `10_000` calls will be made to `sumRegion`.
-///
-/// https://leetcode.com/problems/range-sum-query-2d-immutable
-struct NumMatrix {
+//! \#304. Range Sum Query 2D - Immutable
+//! =====================================
+//!
+//! Given a 2D matrix `matrix`, handle multiple queries of the following type:
+//!
+//! - Calculate the __sum__ of the elements of `matrix` inside the rectangle
+//!   defined by its __upper left corner__ `(row1, col1)` and __lower right corner__ `(row2, col2)`.
+//!
+//! Implement the `NumMatrix` class:
+//!
+//! - `NumMatrix(int[][] matrix)` Initializes the object with the integer matrix `matrix`.
+//! - `int sumRegion(int row1, int col1, int row2, int col2)` Returns the __sum__ of the elements of `matrix` inside
+//!   the rectangle defined by its __upper left corner__ `(row1, col1)` and __lower right corner__ `(row2, col2)`.
+//!
+//! __Constraints:__
+//!
+//! - `m == matrix.length`
+//! - `n == matrix[i].length`
+//! - `1 <= m, n <= 200`
+//! - `-100_000 <= matrix[i][j] <= 100_000`
+//! - `0 <= row1 <= row2 < m`
+//! - `0 <= col1 <= col2 < n`
+//! - At most `10_000` calls will be made to `sumRegion`.
+//!
+//! <https://leetcode.com/problems/range-sum-query-2d-immutable>
+
+pub struct NumMatrix {
     matrix: Vec<Vec<i32>>,
 }
 impl NumMatrix {
-    fn new(mut matrix: Vec<Vec<i32>>) -> Self {
+    pub fn new(mut matrix: Vec<Vec<i32>>) -> Self {
         let (m, n) = (matrix.len(), matrix[0].len());
         for r in 1..m {
             matrix[r][0] += matrix[r - 1][0];
@@ -43,7 +44,7 @@ impl NumMatrix {
         }
         Self { matrix }
     }
-    fn sum_region(&self, row1: i32, col1: i32, row2: i32, col2: i32) -> i32 {
+    pub fn sum_region(&self, row1: i32, col1: i32, row2: i32, col2: i32) -> i32 {
         let (r1, c1, r2, c2) = (row1 as usize, col1 as usize, row2 as usize, col2 as usize);
         let sum_up = if r1 > 0 { self.matrix[r1 - 1][c2] } else { 0 };
         let sum_left = if c1 > 0 { self.matrix[r2][c1 - 1] } else { 0 };

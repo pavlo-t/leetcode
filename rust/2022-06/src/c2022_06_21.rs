@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 //! \#1642. Furthest Building You Can Reach
 //! =======================================
 //!
@@ -21,10 +22,9 @@
 //! - `0 <= bricks <= 1_000_000_000`
 //! - `0 <= ladders <= heights.length`
 //!
-//! https://leetcode.com/problems/furthest-building-you-can-reach
-#![allow(dead_code)]
+//! <https://leetcode.com/problems/furthest-building-you-can-reach>
 
-struct Solution {}
+pub struct Solution {}
 impl Solution {
     pub fn furthest_building(heights: Vec<i32>, bricks: i32, ladders: i32) -> i32 {
         use std::cmp::Reverse;

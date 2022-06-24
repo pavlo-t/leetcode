@@ -20,7 +20,7 @@
 //! - `words[i]`, `prefix` and `suffix` consist of lower-case English letters only.
 //! - At most `15000` calls will be made to the function `f`.
 //!
-//! https://leetcode.com/problems/prefix-and-suffix-search
+//! <https://leetcode.com/problems/prefix-and-suffix-search>
 
 use std::iter::once;
 
@@ -32,11 +32,11 @@ struct Trie {
     children: [Option<Box<Trie>>; 27],
 }
 
-struct WordFilter {
+pub struct WordFilter {
     trie: Trie,
 }
 impl WordFilter {
-    fn new(words: Vec<String>) -> Self {
+    pub fn new(words: Vec<String>) -> Self {
         let mut trie = Trie::default();
         for (idx, w) in words.into_iter().enumerate() {
             for suffix_start in 0..w.len() {
@@ -53,7 +53,7 @@ impl WordFilter {
         }
         Self { trie }
     }
-    fn f(&self, prefix: String, suffix: String) -> i32 {
+    pub fn f(&self, prefix: String, suffix: String) -> i32 {
         let mut curr = &self.trie;
         for b in suffix.bytes().chain(once(DEL)).chain(prefix.bytes()) {
             let i = (b - b'a') as usize;

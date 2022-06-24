@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 //! \#1229. Meeting Scheduler
 //! =========================
 //!
@@ -22,10 +23,9 @@
 //! - `0 <= slots1[i][j], slots2[i][j] <= 1_000_000_000`
 //! - `1 <= duration <= 1_000_000`
 //!
-//! https://leetcode.com/problems/meeting-scheduler
-#![allow(dead_code)]
+//! <https://leetcode.com/problems/meeting-scheduler>
 
-struct Solution;
+pub struct Solution;
 impl Solution {
     pub fn min_available_duration(
         mut slots1: Vec<Vec<i32>>,

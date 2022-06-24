@@ -1,16 +1,17 @@
 #![allow(dead_code)]
-/// \#5. Longest Palindromic Substring
-/// ==================================
-///
-/// Given a string `s`, return _the longest palindromic substring in `s`_.
-///
-/// __Constraints:__
-///
-/// - `1 <= s.length <= 1000`
-/// - `s` consist of only digits and English letters.
-///
-/// https://leetcode.com/problems/longest-palindromic-substring
-struct Solution;
+//! \#5. Longest Palindromic Substring
+//! ==================================
+//!
+//! Given a string `s`, return _the longest palindromic substring in `s`_.
+//!
+//! __Constraints:__
+//!
+//! - `1 <= s.length <= 1000`
+//! - `s` consist of only digits and English letters.
+//!
+//! <https://leetcode.com/problems/longest-palindromic-substring>
+
+pub struct Solution;
 impl Solution {
     pub fn longest_palindrome(s: String) -> String {
         fn expand(mut l: usize, mut r: usize, s: &[u8]) -> &[u8] {

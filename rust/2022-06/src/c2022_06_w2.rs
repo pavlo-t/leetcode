@@ -1,19 +1,20 @@
 #![allow(dead_code)]
-/// \#1151. Minimum Swaps to Group All 1's Together
-/// ===============================================
-///
-/// Given a binary array `data`,
-/// return the minimum number of swaps required to
-/// group all `1`’s present in the array together
-/// in __any place__ in the array.
-///
-/// __Constraints:__
-///
-/// - `1 <= data.length <= 100_000`
-/// - `data[i]` is either `0` or `1`.
-///
-/// https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together
-struct Solution;
+//! \#1151. Minimum Swaps to Group All 1's Together
+//! ===============================================
+//!
+//! Given a binary array `data`,
+//! return the minimum number of swaps required to
+//! group all `1`’s present in the array together
+//! in __any place__ in the array.
+//!
+//! __Constraints:__
+//!
+//! - `1 <= data.length <= 100_000`
+//! - `data[i]` is either `0` or `1`.
+//!
+//! <https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together>
+
+pub struct Solution;
 impl Solution {
     pub fn min_swaps(data: Vec<i32>) -> i32 {
         let ones = data.iter().filter(|&&n| n == 1).count();

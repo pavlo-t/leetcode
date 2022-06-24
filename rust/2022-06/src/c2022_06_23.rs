@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 //! \#630. Course Schedule III
 //! ==========================
 //!
@@ -15,10 +16,9 @@
 //! - `1 <= courses.length <= 10_000`
 //! - `1 <= durationi, lastDayi <= 10_000`
 //!
-//! https://leetcode.com/problems/course-schedule-iii
-#![allow(dead_code)]
+//! <https://leetcode.com/problems/course-schedule-iii>
 
-struct Solution;
+pub struct Solution;
 impl Solution {
     pub fn schedule_course_rec(mut courses: Vec<Vec<i32>>) -> i32 {
         fn rec(i: usize, d: i32, c: &[Vec<i32>]) -> i32 {

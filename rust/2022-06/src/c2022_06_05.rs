@@ -1,18 +1,19 @@
 #![allow(dead_code)]
-/// \#52. N-Queens II
-/// =================
-///
-/// The __n-queens__ puzzle is the problem of placing `n` queens on an `n x n` chessboard
-/// such that no two queens attack each other.
-///
-/// Given an integer `n`, return _the number of distinct solutions to the __n-queens puzzle___.
-///
-/// __Constraints:__
-///
-/// - `1 <= n <= 9`
-///
-/// https://leetcode.com/problems/n-queens-ii
-struct Solution;
+//! \#52. N-Queens II
+//! =================
+//!
+//! The __n-queens__ puzzle is the problem of placing `n` queens on an `n x n` chessboard
+//! such that no two queens attack each other.
+//!
+//! Given an integer `n`, return _the number of distinct solutions to the __n-queens puzzle___.
+//!
+//! __Constraints:__
+//!
+//! - `1 <= n <= 9`
+//!
+//! <https://leetcode.com/problems/n-queens-ii>
+
+pub struct Solution;
 impl Solution {
     pub fn total_n_queens(n: i32) -> i32 {
         fn bts(

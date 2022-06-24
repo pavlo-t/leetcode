@@ -1,22 +1,23 @@
 #![allow(dead_code)]
-/// \#51. N-Queens
-/// ==============
-///
-/// The __n-queens__ puzzle is the problem of placing `n` queens on an `n x n` chessboard
-/// such that no two queens attack each other.
-///
-/// Given an integer `n`, return _all distinct solutions to the __n-queens__ puzzle_.
-/// You may return the answer in __any order__.
-///
-/// Each solution contains a distinct board configuration of the n-queens' placement,
-/// where `'Q'` and `'.'` both indicate a queen and an empty space, respectively.
-///
-/// __Constraints:__
-///
-/// - `1 <= n <= 9`
-///
-/// https://leetcode.com/problems/n-queens
-struct Solution;
+//! \#51. N-Queens
+//! ==============
+//!
+//! The __n-queens__ puzzle is the problem of placing `n` queens on an `n x n` chessboard
+//! such that no two queens attack each other.
+//!
+//! Given an integer `n`, return _all distinct solutions to the __n-queens__ puzzle_.
+//! You may return the answer in __any order__.
+//!
+//! Each solution contains a distinct board configuration of the n-queens' placement,
+//! where `'Q'` and `'.'` both indicate a queen and an empty space, respectively.
+//!
+//! __Constraints:__
+//!
+//! - `1 <= n <= 9`
+//!
+//! <https://leetcode.com/problems/n-queens>
+
+pub struct Solution;
 impl Solution {
     pub fn solve_n_queens(n: i32) -> Vec<Vec<String>> {
         struct Taken {

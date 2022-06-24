@@ -1,27 +1,28 @@
 #![allow(dead_code)]
-/// \#527. Word Abbreviation
-/// ========================
-///
-/// Given an array of __distinct__ strings `words`, return _the minimal possible __abbreviations__ for every word_.
-///
-/// The following are the rules for a string abbreviation:
-///
-/// 1. Begin with the first character, and then the number of characters abbreviated, followed by the last character.
-/// 2. If there is any conflict and more than one word shares the same abbreviation,
-///    a longer prefix is used instead of only the first character
-///    until making the map from word to abbreviation become unique.
-///    In other words, a final abbreviation cannot map to more than one original word.
-/// 3. If the abbreviation does not make the word shorter, then keep it as the original.
-///
-/// __Constraints:__
-///
-/// - `1 <= words.length <= 400`
-/// - `2 <= words[i].length <= 400`
-/// - `words[i]` consists of lowercase English letters.
-/// - All the strings of `words` are __unique__.
-///
-/// https://leetcode.com/problems/word-abbreviation
-struct Solution;
+//! \#527. Word Abbreviation
+//! ========================
+//!
+//! Given an array of __distinct__ strings `words`, return _the minimal possible __abbreviations__ for every word_.
+//!
+//! The following are the rules for a string abbreviation:
+//!
+//! 1. Begin with the first character, and then the number of characters abbreviated, followed by the last character.
+//! 2. If there is any conflict and more than one word shares the same abbreviation,
+//!    a longer prefix is used instead of only the first character
+//!    until making the map from word to abbreviation become unique.
+//!    In other words, a final abbreviation cannot map to more than one original word.
+//! 3. If the abbreviation does not make the word shorter, then keep it as the original.
+//!
+//! __Constraints:__
+//!
+//! - `1 <= words.length <= 400`
+//! - `2 <= words[i].length <= 400`
+//! - `words[i]` consists of lowercase English letters.
+//! - All the strings of `words` are __unique__.
+//!
+//! <https://leetcode.com/problems/word-abbreviation>
+
+pub struct Solution;
 impl Solution {
     pub fn words_abbreviation(mut words: Vec<String>) -> Vec<String> {
         use std::collections::HashMap;

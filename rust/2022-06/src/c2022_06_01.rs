@@ -1,19 +1,20 @@
 #![allow(dead_code)]
-/// \#1480. Running Sum of 1d Array
-/// ===============================
-///
-/// Given an array `nums`.
-/// We define a running sum of an array as `runningSum[i] = sum(nums[0]…nums[i])`.
-///
-/// Return the running sum of `nums`.
-///
-/// __Constraints:__
-///
-/// - `1 <= nums.length <= 1000`
-/// - `-1_000_000 <= nums[i] <= 10_000_000`
-///
-/// https://leetcode.com/problems/running-sum-of-1d-array
-struct Solution;
+//! \#1480. Running Sum of 1d Array
+//! ===============================
+//!
+//! Given an array `nums`.
+//! We define a running sum of an array as `runningSum[i] = sum(nums[0]…nums[i])`.
+//!
+//! Return the running sum of `nums`.
+//!
+//! __Constraints:__
+//!
+//! - `1 <= nums.length <= 1000`
+//! - `-1_000_000 <= nums[i] <= 10_000_000`
+//!
+//! <https://leetcode.com/problems/running-sum-of-1d-array>
+
+pub struct Solution;
 impl Solution {
     pub fn running_sum(mut nums: Vec<i32>) -> Vec<i32> {
         for i in 1..nums.len() {

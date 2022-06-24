@@ -1,25 +1,26 @@
 #![allow(dead_code)]
-/// \#120. Triangle
-/// ===============
-///
-/// Given a `triangle` array, return _the minimum path sum from top to bottom_.
-///
-/// For each step, you may move to an adjacent number of the row below.
-/// More formally, if you are on index `i` on the current row,
-/// you may move to either index `i` or index `i + 1` on the next row.
-///
-/// __Constraints:__
-///
-/// - `1 <= triangle.length <= 200`
-/// - `triangle[0].length == 1`
-/// - `triangle[i].length == triangle[i - 1].length + 1`
-/// - `-10_000 <= triangle[i][j] <= 10_000`
-///
-/// __Follow up:__ Could you do this using only `O(n)` extra space,
-/// where `n` is the total number of rows in the triangle?
-///
-/// https://leetcode.com/problems/triangle
-struct Solution;
+//! \#120. Triangle
+//! ===============
+//!
+//! Given a `triangle` array, return _the minimum path sum from top to bottom_.
+//!
+//! For each step, you may move to an adjacent number of the row below.
+//! More formally, if you are on index `i` on the current row,
+//! you may move to either index `i` or index `i + 1` on the next row.
+//!
+//! __Constraints:__
+//!
+//! - `1 <= triangle.length <= 200`
+//! - `triangle[0].length == 1`
+//! - `triangle[i].length == triangle[i - 1].length + 1`
+//! - `-10_000 <= triangle[i][j] <= 10_000`
+//!
+//! __Follow up:__ Could you do this using only `O(n)` extra space,
+//! where `n` is the total number of rows in the triangle?
+//!
+//! <https://leetcode.com/problems/triangle>
+
+pub struct Solution;
 impl Solution {
     pub fn minimum_total(triangle: Vec<Vec<i32>>) -> i32 {
         let mut dp = vec![0; triangle.len() + 1];

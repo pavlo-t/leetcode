@@ -1,22 +1,24 @@
 #![allow(dead_code)]
+//! \#968. Binary Tree Cameras
+//! ==========================
+//!
+//! You are given the `root` of a binary tree.
+//! We install cameras on the tree nodes where each camera at a node can monitor its parent,
+//! itself, and its immediate children.
+//!
+//! Return _the minimum number of cameras needed to monitor all nodes of the tree_.
+//!
+//! __Constraints:__
+//!
+//! - The number of nodes in the tree is in the range `[1, 1000]`.
+//! - `Node.val == 0`
+//!
+//! <https://leetcode.com/problems/binary-tree-cameras>
+
 use std::cell::RefCell;
 use std::rc::Rc;
-/// \#968. Binary Tree Cameras
-/// ==========================
-///
-/// You are given the `root` of a binary tree.
-/// We install cameras on the tree nodes where each camera at a node can monitor its parent,
-/// itself, and its immediate children.
-///
-/// Return _the minimum number of cameras needed to monitor all nodes of the tree_.
-///
-/// __Constraints:__
-///
-/// - The number of nodes in the tree is in the range `[1, 1000]`.
-/// - `Node.val == 0`
-///
-/// https://leetcode.com/problems/binary-tree-cameras
-struct Solution;
+
+pub struct Solution;
 type T = Option<Rc<RefCell<TreeNode>>>;
 impl Solution {
     pub fn min_camera_cover(root: T) -> i32 {

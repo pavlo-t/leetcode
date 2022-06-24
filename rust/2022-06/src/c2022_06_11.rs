@@ -1,23 +1,24 @@
 #![allow(dead_code)]
-/// \#1658. Minimum Operations to Reduce X to Zero
-/// ==============================================
-///
-/// You are given an integer array `nums` and an integer `x`.
-/// In one operation, you can either remove the leftmost or the rightmost
-/// element from the array `nums` and subtract its value from `x`.
-/// Note that this __modifies__ the array for future operations.
-///
-/// Return _the __minimum number__ of operations to reduce `x`
-/// to __exactly__ `0` if it is possible, otherwise, return `-1`_.
-///
-/// __Constraints:__
-///
-/// - `1 <= nums.length <= 100_000`
-/// - `1 <= nums[i] <= 10_000`
-/// - `1 <= x <= 1_000_000_000`
-///
-/// https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero
-struct Solution;
+//! \#1658. Minimum Operations to Reduce X to Zero
+//! ==============================================
+//!
+//! You are given an integer array `nums` and an integer `x`.
+//! In one operation, you can either remove the leftmost or the rightmost
+//! element from the array `nums` and subtract its value from `x`.
+//! Note that this __modifies__ the array for future operations.
+//!
+//! Return _the __minimum number__ of operations to reduce `x`
+//! to __exactly__ `0` if it is possible, otherwise, return `-1`_.
+//!
+//! __Constraints:__
+//!
+//! - `1 <= nums.length <= 100_000`
+//! - `1 <= nums[i] <= 10_000`
+//! - `1 <= x <= 1_000_000_000`
+//!
+//! <https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero>
+
+pub struct Solution;
 impl Solution {
     pub fn min_operations(nums: Vec<i32>, x: i32) -> i32 {
         let mut target = nums.iter().sum::<i32>() - x;

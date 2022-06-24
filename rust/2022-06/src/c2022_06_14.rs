@@ -1,19 +1,20 @@
 #![allow(dead_code)]
-/// \#583. Delete Operation for Two Strings
-/// =======================================
-///
-/// Given two strings `word1` and `word2`, return
-/// _the minimum number of __steps__ required to make `word1` and `word2` the same_.
-///
-/// In one __step__, you can delete exactly one character in either string.
-///
-/// __Constraints:__
-///
-/// - `1 <= word1.length, word2.length <= 500`
-/// - `word1` and `word2` consist of only lowercase English letters.
-///
-/// https://leetcode.com/problems/delete-operation-for-two-strings
-struct Solution;
+//! \#583. Delete Operation for Two Strings
+//! =======================================
+//!
+//! Given two strings `word1` and `word2`, return
+//! _the minimum number of __steps__ required to make `word1` and `word2` the same_.
+//!
+//! In one __step__, you can delete exactly one character in either string.
+//!
+//! __Constraints:__
+//!
+//! - `1 <= word1.length, word2.length <= 500`
+//! - `word1` and `word2` consist of only lowercase English letters.
+//!
+//! <https://leetcode.com/problems/delete-operation-for-two-strings>
+
+pub struct Solution;
 impl Solution {
     pub fn min_distance(word1: String, word2: String) -> i32 {
         let (w1, w2) = {

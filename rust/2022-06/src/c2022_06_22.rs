@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 //! \#215. Kth Largest Element in an Array
 //! ======================================
 //!
@@ -10,10 +11,9 @@
 //! - `1 <= k <= nums.length <= 10_000`
 //! - `-10_000 <= nums[i] <= 10_000`
 //!
-//! https://leetcode.com/problems/kth-largest-element-in-an-array
-#![allow(dead_code)]
+//! <https://leetcode.com/problems/kth-largest-element-in-an-array>
 
-struct Solution;
+pub struct Solution;
 impl Solution {
     pub fn find_kth_largest(nums: Vec<i32>, k: i32) -> i32 {
         use std::collections::BinaryHeap;

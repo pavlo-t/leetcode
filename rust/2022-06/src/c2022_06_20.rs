@@ -1,25 +1,26 @@
 #![allow(dead_code)]
-/// \#820. Short Encoding of Words
-/// ==============================
-///
-/// A __valid encoding__ of an array of `words` is any reference string `s` and array of indices `indices` such that:
-///
-/// - `words.length == indices.length`
-/// - The reference string `s` ends with the `'#'` character.
-/// - For each index `indices[i]`, the __substring__ of `s` starting from `indices[i]`
-///   and up to (but not including) the next `'#'` character is equal to `words[i]`.
-///
-/// Given an array of `words`, return
-/// _the __length of the shortest reference string__ `s` possible of any __valid encoding__ of `words`_.
-///
-/// __Constraints:__
-///
-/// - `1 <= words.length <= 2000`
-/// - `1 <= words[i].length <= 7`
-/// - `words[i]` consists of only lowercase letters.
-///
-/// https://leetcode.com/problems/short-encoding-of-words
-struct Solution;
+//! \#820. Short Encoding of Words
+//! ==============================
+//!
+//! A __valid encoding__ of an array of `words` is any reference string `s` and array of indices `indices` such that:
+//!
+//! - `words.length == indices.length`
+//! - The reference string `s` ends with the `'#'` character.
+//! - For each index `indices[i]`, the __substring__ of `s` starting from `indices[i]`
+//!   and up to (but not including) the next `'#'` character is equal to `words[i]`.
+//!
+//! Given an array of `words`, return
+//! _the __length of the shortest reference string__ `s` possible of any __valid encoding__ of `words`_.
+//!
+//! __Constraints:__
+//!
+//! - `1 <= words.length <= 2000`
+//! - `1 <= words[i].length <= 7`
+//! - `words[i]` consists of only lowercase letters.
+//!
+//! <https://leetcode.com/problems/short-encoding-of-words>
+
+pub struct Solution;
 impl Solution {
     pub fn minimum_length_encoding(words: Vec<String>) -> i32 {
         #[derive(Default)]

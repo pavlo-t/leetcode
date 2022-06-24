@@ -1,22 +1,23 @@
 #![allow(dead_code)]
-/// \#867. Transpose Matrix
-/// =======================
-///
-/// Given a 2D integer array `matrix`, return _the __transpose__ of `matrix`_.
-///
-/// The __transpose__ of a matrix is the matrix flipped over its main diagonal,
-/// switching the matrix's row and column indices.
-///
-/// Constraints:
-///
-/// - `m == matrix.length`
-/// - `n == matrix[i].length`
-/// - `1 <= m, n <= 1000`
-/// - `1 <= m * n <= 100_000`
-/// - `-1_000_000_000 <= matrix[i][j] <= 1_000_000_000`
-///
-/// https://leetcode.com/problems/transpose-matrix
-struct Solution;
+//! \#867. Transpose Matrix
+//! =======================
+//!
+//! Given a 2D integer array `matrix`, return _the __transpose__ of `matrix`_.
+//!
+//! The __transpose__ of a matrix is the matrix flipped over its main diagonal,
+//! switching the matrix's row and column indices.
+//!
+//! Constraints:
+//!
+//! - `m == matrix.length`
+//! - `n == matrix[i].length`
+//! - `1 <= m, n <= 1000`
+//! - `1 <= m * n <= 100_000`
+//! - `-1_000_000_000 <= matrix[i][j] <= 1_000_000_000`
+//!
+//! <https://leetcode.com/problems/transpose-matrix>
+
+pub struct Solution;
 impl Solution {
     pub fn transpose(matrix: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
         let (m, n) = (matrix.len(), matrix[0].len());
