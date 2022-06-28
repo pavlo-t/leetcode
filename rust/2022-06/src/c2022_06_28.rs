@@ -16,7 +16,7 @@
 //!
 //! <https://leetcode.com/problems/minimum-deletions-to-make-character-frequencies-unique>
 
-struct Solution;
+pub struct Solution;
 impl Solution {
     pub fn min_deletions(s: String) -> i32 {
         use std::collections::HashSet;
