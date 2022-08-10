@@ -15,7 +15,7 @@
 //! - `1 <= nums.length <= 2500`
 //! - `-10_000 <= nums[i] <= 10_000`
 //!
-//! #### Follow up
+//! ##### Follow up
 //!
 //! Can you come up with an algorithm that runs in `O(n log(n))` time complexity?
 //!
