@@ -148,8 +148,3 @@ pub const N: T = None;
 #[rustfmt::skip] pub fn l(val: i32)                    -> T { wrap(TreeNode::new(val)) }
 /// Wrapped tree node
 #[rustfmt::skip] pub fn t(val: i32, left: T, right: T) -> T { wrap(TreeNode { val, left, right }) }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-}
