@@ -7,7 +7,37 @@
 //! You are given an integer array `nums` and you have to return a new `counts` array.
 //! The `counts` array has the property where `counts[i]` is the number of smaller elements to the right of `nums[i]`.
 //!
-//! __Constraints:__
+//! ##### Examples
+//!
+//! ###### Example 1
+//!
+//! ```
+//! # use c2022_07::c2022_07_23::*;
+//! assert_eq!(Solution::count_smaller(vec![5, 2, 6, 1]), [2, 1, 1, 0]);
+//! ```
+//!
+//! __Explanation:__
+//!
+//! - To the right of `5` there are `2` smaller elements (`2` and `1`).
+//! - To the right of `2` there is only `1` smaller element (`1`).
+//! - To the right of `6` there is `1` smaller element (`1`).
+//! - To the right of `1` there is `0` smaller element.
+//!
+//! ###### Example 2
+//!
+//! ```
+//! # use c2022_07::c2022_07_23::*;
+//! assert_eq!(Solution::count_smaller(vec![-1]), [0]);
+//! ```
+//!
+//! ###### Example 3
+//!
+//! ```
+//! # use c2022_07::c2022_07_23::*;
+//! assert_eq!(Solution::count_smaller(vec![-1, -1]), [0, 0]);
+//! ```
+//!
+//! ##### Constraints
 //!
 //! - `1 <= nums.length <= 100_000`
 //! - `-10_000 <= nums[i] <= 10_000`
@@ -80,7 +110,7 @@ impl Solution {
     }
 
     /// Reuse results for nums
-    pub fn count_smaller(nums: Vec<i32>) -> Vec<i32> {
+    pub fn count_smaller_v4(nums: Vec<i32>) -> Vec<i32> {
         use std::collections::HashMap;
 
         let n = nums.len();
@@ -102,6 +132,139 @@ impl Solution {
                 result[i] = count;
             }
             next_same_num.insert(num, i);
+        }
+
+        result
+    }
+
+    /// Using a [segment tree (recursive)](https://www.geeksforgeeks.org/segment-tree-set-1-sum-of-given-range)
+    pub fn count_smaller_v5(nums: Vec<i32>) -> Vec<i32> {
+        type Range = (usize, usize);
+
+        pub struct SegmentTree {
+            tree: Vec<i32>,
+            n: usize,
+        }
+
+        impl SegmentTree {
+            pub fn new(n: usize) -> Self {
+                let height = (n as f64).log2().ceil() as u32;
+                let max_size = 2 * 2usize.pow(height);
+                let tree = vec![0; max_size];
+
+                Self { tree, n }
+            }
+
+            pub fn range_sum(&self, left: usize, right: usize) -> i32 {
+                self.range_sum_rec(0, (0, self.n - 1), (left, right))
+            }
+
+            fn range_sum_rec(&self, node: usize, (l, r): Range, query: Range) -> i32 {
+                let (left, right) = query;
+                if r < left || right < l {
+                    0
+                } else if left <= l && r <= right {
+                    self.tree[node]
+                } else {
+                    let m = l + (r - l) / 2;
+                    let l_sum = self.range_sum_rec(node * 2 + 1, (l, m), query);
+                    let r_sum = self.range_sum_rec(node * 2 + 2, (m + 1, r), query);
+                    l_sum + r_sum
+                }
+            }
+
+            pub fn add(&mut self, idx: usize, diff: i32) {
+                self.add_rec(0, (0, self.n - 1), idx, diff);
+            }
+
+            fn add_rec(&mut self, node: usize, (l, r): Range, idx: usize, diff: i32) {
+                if l <= idx && r >= idx {
+                    self.tree[node] += diff;
+                    if l < r {
+                        let m = l + (r - l) / 2;
+                        self.add_rec(node * 2 + 1, (l, m), idx, diff);
+                        self.add_rec(node * 2 + 2, (m + 1, r), idx, diff);
+                    }
+                }
+            }
+        }
+
+        let min_max = |(min, max): (i32, i32), &val| (min.min(val), max.max(val));
+        let n = nums.len();
+        let (min_val, max_val) = nums.iter().fold((i32::MAX, i32::MIN), min_max);
+        let to_idx = |val: i32| (val - min_val) as usize;
+
+        let mut tree = SegmentTree::new((max_val - min_val) as usize + 1);
+        let mut result = vec![0; n];
+
+        for (i, &val) in nums.iter().enumerate().rev() {
+            if val > min_val {
+                result[i] = tree.range_sum(0, to_idx(val) - 1)
+            }
+            tree.add(to_idx(val), 1);
+        }
+
+        result
+    }
+
+    /// Using a [segment tree (iterative)](https://www.geeksforgeeks.org/iterative-segment-tree-range-minimum-query)
+    pub fn count_smaller(nums: Vec<i32>) -> Vec<i32> {
+        pub struct SegmentTree {
+            tree: Vec<i32>,
+            n: usize,
+        }
+
+        impl SegmentTree {
+            pub fn new(n: usize) -> Self {
+                let tree = vec![0; n * 2];
+                Self { tree, n }
+            }
+
+            pub fn range_sum(&self, mut left: usize, mut right: usize) -> i32 {
+                let mut result = 0;
+
+                left += self.n;
+                right += self.n + 1;
+
+                while left < right {
+                    if left % 2 == 1 {
+                        result += self.tree[left];
+                        left += 1;
+                    }
+                    if right % 2 == 1 {
+                        right -= 1;
+                        result += self.tree[right];
+                    }
+                    left /= 2;
+                    right /= 2;
+                }
+
+                result
+            }
+
+            pub fn add(&mut self, mut i: usize, diff: i32) {
+                i += self.n;
+                self.tree[i] += diff;
+                while i > 1 {
+                    i /= 2;
+                    self.tree[i] = self.tree[i * 2] + self.tree[i * 2 + 1];
+                }
+            }
+        }
+
+        let min_max = |(min, max): (i32, i32), &val| (min.min(val), max.max(val));
+        let n = nums.len();
+        let (min_val, max_val) = nums.iter().fold((i32::MAX, i32::MIN), min_max);
+        let to_idx = |val: i32| (val - min_val) as usize;
+
+        let mut tree = SegmentTree::new((max_val - min_val) as usize + 1);
+        let mut result = vec![0; n];
+
+        for (i, &val) in nums.iter().enumerate().rev() {
+            if val > min_val {
+                result[i] = tree.range_sum(0, to_idx(val) - 1)
+            }
+            tree.add(to_idx(val), 1);
         }
 
         result
@@ -155,11 +318,13 @@ mod tests {
         assert_eq!(Solution::count_smaller(n).len(), 100_000);
     }
 
+    //#[ignore]
     #[test]
     fn test52() {
         let (nums, expected) = read_data("src/c2022_07_23_test_52.txt");
         assert_eq!(Solution::count_smaller(nums), expected);
     }
+    //#[ignore]
     #[test]
     fn test58() {
         let (nums, expected) = read_data("src/c2022_07_23_test_58.txt");
