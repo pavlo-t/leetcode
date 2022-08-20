@@ -208,7 +208,7 @@ impl Solution {
     }
 
     /// Using a [segment tree (iterative)](https://www.geeksforgeeks.org/iterative-segment-tree-range-minimum-query)
-    pub fn count_smaller(nums: Vec<i32>) -> Vec<i32> {
+    pub fn count_smaller_v6(nums: Vec<i32>) -> Vec<i32> {
         pub struct SegmentTree {
             tree: Vec<i32>,
             n: usize,
@@ -263,6 +263,54 @@ impl Solution {
         for (i, &val) in nums.iter().enumerate().rev() {
             if val > min_val {
                 result[i] = tree.range_sum(0, to_idx(val) - 1)
+            }
+            tree.add(to_idx(val), 1);
+        }
+
+        result
+    }
+
+    /// Using a [binary indexed tree](https://www.geeksforgeeks.org/binary-indexed-tree-or-fenwick-tree-2)
+    pub fn count_smaller(nums: Vec<i32>) -> Vec<i32> {
+        pub struct BinaryIndexedTree {
+            tree: Vec<i32>,
+        }
+        impl BinaryIndexedTree {
+            pub fn new(n: usize) -> Self {
+                let tree = vec![0; n + 1];
+                Self { tree }
+            }
+
+            pub fn add(&mut self, mut i: usize, val: i32) {
+                i += 1;
+                while i < self.tree.len() {
+                    self.tree[i] += val;
+                    i += 1 << i.trailing_zeros();
+                }
+            }
+
+            pub fn prefix_sum(&self, mut i: usize) -> i32 {
+                let mut result = 0;
+                i += 1;
+                while i > 0 {
+                    result += self.tree[i];
+                    i -= 1 << i.trailing_zeros();
+                }
+                result
+            }
+        }
+
+        let min_max = |(min, max): (i32, i32), &val| (min.min(val), max.max(val));
+        let n = nums.len();
+        let (min_val, max_val) = nums.iter().fold((i32::MAX, i32::MIN), min_max);
+        let to_idx = |val: i32| (val - min_val) as usize;
+
+        let mut tree = BinaryIndexedTree::new((max_val - min_val) as usize + 1);
+        let mut result = vec![0; n];
+
+        for (i, &val) in nums.iter().enumerate().rev() {
+            if val > min_val {
+                result[i] = tree.prefix_sum(to_idx(val) - 1);
             }
             tree.add(to_idx(val), 1);
         }
