@@ -35,6 +35,13 @@ impl fmt::Debug for ListNode {
 
 pub const NIL: Option<Box<ListNode>> = None;
 
+/// Builds a linked list
+///
+/// ```
+/// assert_eq!(l![],     None);
+/// assert_eq!(l![1],    Some(Box::new(ListNode::new(2))));
+/// assert_eq!(l![1, 2], Some(Box::new(ListNode { val: 1, next: Some(Box::new(ListNode::new(2))) } )));
+/// ```
 #[macro_export]
 macro_rules! l {
     ()                        => { NIL };
