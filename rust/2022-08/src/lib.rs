@@ -34,3 +34,4 @@ pub mod c2022_08_25;
 pub mod c2022_08_26;
 pub mod c2022_08_29;
 pub mod c2022_08_30;
+pub mod c2022_08_w5;
